@@ -1,0 +1,104 @@
+@use '../../scss/variables' as *;
+
+// Keyframes for content expansion
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.help-screen {
+  display: flex;
+  flex-direction: column;
+  gap: spacing('4');
+  position: relative;
+
+  &__title {
+    font-size: font-size('4.5xl');
+    font-weight: weight('bold');
+    color: black-white('600');
+    margin-bottom: spacing('3');
+    max-width: spacing('56');
+    line-height: 1;
+  }
+
+  &__card {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top;
+    background-color: black-white('50');
+
+    &:hover {
+      box-shadow: shadow('minimal');
+      transform: translateY(-2px);
+    }
+
+    &.expanded {
+      background-color: black-white('50');
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: spacing('2');
+  }
+
+  &__title-text {
+    font-size: font-size('base');
+    color: black-white('400');
+    font-weight: weight('semibold');
+  }
+
+  &__arrow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: spacing('8');
+    height: spacing('8');
+    border-radius: $radius-full;
+    color: primary('default');
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &--expanded {
+      transform: rotate(90deg);
+    }
+
+    &--collapsed {
+      transform: rotate(270deg);
+    }
+
+    img {
+      width: spacing('4');
+      height: spacing('4');
+    }
+  }
+
+  &__content {
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: spacing('2');
+    margin-top: spacing('4');
+    padding: spacing('2');
+    transform-origin: top;
+  }
+
+  &__paragraph {
+    font-size: font-size('base');
+    color: black-white('800');
+    margin-bottom: spacing('2');
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: spacing('2');
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s; // Slight delay for button animation
+  }
+}

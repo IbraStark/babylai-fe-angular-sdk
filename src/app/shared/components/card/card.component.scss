@@ -1,0 +1,75 @@
+@use '../../../../scss/variables' as *;
+
+// Base card styles
+.card {
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+
+  // Default variant
+  &--default {
+    border-radius: $radius-lg;
+    border: 1px solid black-white('200');
+    background-color: black-white('50');
+    color: black-white('600');
+    box-shadow: shadow('minimal');
+  }
+
+  // Rounded variant
+  &--rounded {
+    border-radius: $radius-3xl;
+    background-color: black-white('50');
+    padding: spacing('4') spacing('6');
+    display: block;
+  }
+
+  // Shadowed variant
+  &--shadowed {
+    border-radius: $radius-lg;
+    border: 1px solid black-white('200');
+    background-color: black-white('50');
+    color: black-white('600');
+    box-shadow: shadow('minimal');
+  }
+
+  // Card header
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: spacing('1.5');
+    padding: spacing('6');
+    width: 100%;
+  }
+
+  // Card title
+  &__title {
+    font-weight: weight('semibold');
+    line-height: 1;
+    letter-spacing: -0.02em;
+    width: 100%;
+  }
+
+  // Card description
+  &__description {
+    font-size: font-size('sm');
+    color: black-white('400');
+    width: 100%;
+  }
+
+  // Card content
+  &__content {
+    padding: 0;
+    padding-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  // Card footer
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: spacing('6');
+    padding-top: 0;
+    width: 100%;
+  }
+}

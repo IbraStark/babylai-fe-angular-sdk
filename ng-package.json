@@ -1,0 +1,53 @@
+{
+  "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "./dist/help-center",
+  "lib": {
+    "entryFile": "./public_api.ts",
+    "cssUrl": "inline"
+  },
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "src/assets",
+      "output": "assets"
+    },
+    {
+      "glob": "**/*",
+      "input": "public",
+      "output": "assets"
+    },
+    {
+      "glob": "**/*",
+      "input": "src/icons",
+      "output": "assets/icons"
+    },
+    {
+      "glob": "**/*",
+      "input": "src/images",
+      "output": "assets/images"
+    },
+    {
+      "glob": "**/*",
+      "input": "src/lib",
+      "output": "assets/lib"
+    }
+  ],
+  "allowedNonPeerDependencies": [
+    "@angular/animations",
+    "@angular/common",
+    "@angular/compiler",
+    "@angular/core",
+    "@angular/forms",
+    "@angular/platform-browser",
+    "@angular/platform-browser-dynamic",
+    "@angular/router",
+    "@microsoft/signalr",
+    "clsx",
+    "marked",
+    "ngx-markdown",
+    "prismjs",
+    "rxjs",
+    "tslib",
+    "zone.js"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "@aslaluroba/help-center",
+  "version": "2.0.4",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "packagr": "ng-packagr -p ng-package.json",
+    "build:lib": "yarn clean && yarn packagr",
+    "clean": "rimraf dist",
+    "prepublishOnly": "yarn build:lib",
+    "version": "yarn version --no-git-tag-version",
+    "publish:lib": "yarn build:lib && cd dist/help-center && yarn publish --non-interactive --no-git-tag-version"
+  },
+  "private": false,
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/common": "^19.1.0",
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "@microsoft/signalr": "^8.0.7",
+    "marked": "^15.0.7",
+    "ngx-markdown": "^19.1.0",
+    "prismjs": "^1.29.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@microsoft/signalr": "^8.0.7",
+    "marked": "^15.0.7",
+    "ngx-markdown": "^19.1.0",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.6",
+    "@angular/cli": "^19.1.6",
+    "@angular/compiler-cli": "^19.1.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.1.2",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.7.2"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aslaluroba/help-center"
+  },
+  "keywords": [
+    "angular",
+    "help-center",
+    "widget",
+    "chat",
+    "support",
+    "ai-assistant",
+    "real-time"
+  ],
+  "author": "AslaLuroba",
+  "bugs": {
+    "url": "https://github.com/aslaluroba/help-center/issues"
+  },
+  "homepage": "https://github.com/aslaluroba/help-center#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
