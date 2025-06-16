@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { HelpCenterWidgetComponent } from './help-center-widget/help-center-widget.component'
-import { TokenService } from './services/token.service'
-import { LanguageService } from './language.service'
-import { Language } from './types'
-import { TranslationService } from './services/translation.service'
-import { Subscription } from 'rxjs'
-import { ApiService } from './services/api.service'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HelpCenterWidgetComponent } from './help-center-widget/help-center-widget.component';
+import { TokenService } from './services/token.service';
+import { LanguageService } from './language.service';
+import { Language } from './types';
+import { TranslationService } from './services/translation.service';
+import { Subscription } from 'rxjs';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +15,20 @@ import { ApiService } from './services/api.service'
   template: `
     <div class="container">
       <div class="language-switcher">
-        <button [class.active]="currentLang === 'en'" (click)="switchLanguage('en')" class="lang-btn">English</button>
-        <button [class.active]="currentLang === 'ar'" (click)="switchLanguage('ar')" class="lang-btn">العربية</button>
+        <button
+          [class.active]="currentLang === 'en'"
+          (click)="switchLanguage('en')"
+          class="lang-btn"
+        >
+          English
+        </button>
+        <button
+          [class.active]="currentLang === 'ar'"
+          (click)="switchLanguage('ar')"
+          class="lang-btn"
+        >
+          العربية
+        </button>
       </div>
 
       <app-help-center-widget
@@ -72,17 +84,18 @@ import { ApiService } from './services/api.service'
         max-width: 800px;
         height: 600px;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'angular-help-center'
-  currentLang: string = 'en'
-  private langSubscription?: Subscription
-
+  title = 'angular-help-center';
+  currentLang: string = 'en';
+  private langSubscription?: Subscription;
+  baseUrl = 'https://be.babylai.dev.ostk.creativeadvtech.ml';
   config = {
-    getToken: this.customTokenImplementation
-  }
+    getToken: this.customTokenImplementation,
+    baseUrl: this.baseUrl,
+  };
 
   constructor(
     private tokenService: TokenService,
@@ -92,32 +105,31 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     // Example: Set up a custom token function that uses the default implementation
     // this.setupCustomTokenFunction()
-    this.currentLang = this.languageService.getCurrentLang()
-    this.apiService.initialize(this.config)
+    this.currentLang = this.languageService.getCurrentLang();
+    this.apiService.initialize(this.config);
   }
 
   async customTokenImplementation(): Promise<string> {
     try {
-      const response = await fetch(`https://babylai.net/api/Auth/client/get-token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          tenantId: '2176c188-8cb4-4fc3-8366-2d32e601f7e5',
-          apiKey: 'I/22UK34I6xAhglfPXTwPAgUuVyJw8TdnG26ZLI5gYQ='
-        })
-      })
+      const response = await fetch(
+        `https://be.babylai.dev.ostk.creativeadvtech.ml/Auth/client/get-babylai-token`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to fetch token')
+        throw new Error('Failed to fetch token');
       }
 
-      const data = await response.json()
-      return data.token
+      const data = await response.json();
+      return data.token;
     } catch (error) {
-      console.error('Custom token implementation failed:', error)
-      throw new Error('Failed to get authentication token')
+      console.error('Custom token implementation failed:', error);
+      throw new Error('Failed to get authentication token');
     }
   }
 
@@ -131,26 +143,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Subscribe to language changes
-    this.langSubscription = this.translationService.currentLang.subscribe((lang) => {
-      this.currentLang = lang
-    })
+    this.langSubscription = this.translationService.currentLang.subscribe(
+      (lang) => {
+        this.currentLang = lang;
+      }
+    );
   }
 
   ngOnDestroy() {
     if (this.langSubscription) {
-      this.langSubscription.unsubscribe()
+      this.langSubscription.unsubscribe();
     }
   }
 
   switchLanguage(language: Language) {
-    this.languageService.switchLanguage(language)
+    this.languageService.switchLanguage(language);
   }
 
   getToken = async () => {
-    const tokenResponse = await this.tokenService.getToken()
-    return tokenResponse.token
-  }
+    const tokenResponse = await this.tokenService.getToken();
+    return tokenResponse.token;
+  };
 
-  helpScreenId = '4b6dcbb4-5c9e-4559-9d31-2f9d755d8a94'
-  isIntroScreenEnabled = false
+  helpScreenId = '57949b38-1a7b-4ca6-a137-6c04848dd67f';
+  isIntroScreenEnabled = false;
 }

@@ -3,11 +3,18 @@
   <div *ngIf="showArrowAnimation && !isPopupOpen" class="arrow-animation">
     <div class="message-box">
       <p>
-        {{ messageLabel || 'Need assistance Or You want to try the Product? Click here' }}
+        {{
+          messageLabel ||
+            "Need assistance Or You want to try the Product? Click here"
+        }}
       </p>
       <button class="close-button" (click)="handleCloseArrowAnimation()">
         <svg width="12" height="12" viewBox="0 0 12 12">
-          <path d="M1 1L11 11M1 11L11 1" stroke="currentColor" strokeWidth="2" />
+          <path
+            d="M1 1L11 11M1 11L11 1"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
         </svg>
       </button>
       <div class="arrow-tip"></div>
@@ -18,7 +25,12 @@
   <button class="help-button" (click)="handleTogglePopup()">
     <span class="help-button-content">
       <!-- <img src="/logo-white.svg" alt="BabylAI Logo" class="help-button-logo" /> -->
-      <svg class="help-button-logo" viewBox="0 0 55 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        class="help-button-logo"
+        viewBox="0 0 55 53"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M8.53125 19.1353C8.53125 12.2804 14.0883 6.72339 20.9432 6.72339H41.6298C48.4847 6.72339 54.0418 12.2804 54.0418 19.1353V52.2339H20.9432C14.0883 52.2339 8.53125 46.6769 8.53125 39.8219V19.1353Z"
           fill="#E5E5E5"
@@ -74,11 +86,17 @@
         <app-header
           [showCloseButton]="!isIntroScreenEnabled"
           [showLogo]="false"
-          (onClose)="isIntroScreenEnabled ? handleHideHelpScreenData() : handleClosePopup()"
+          (onClose)="
+            isIntroScreenEnabled
+              ? handleHideHelpScreenData()
+              : handleClosePopup()
+          "
           [language]="currentLang"
         ></app-header>
       </ng-container>
-      <app-loading [variant]="!isIntroScreenEnabled ? 'primary' : 'default'"></app-loading>
+      <app-loading
+        [variant]="!isIntroScreenEnabled ? 'primary' : 'default'"
+      ></app-loading>
     </div>
 
     <!-- Error State -->
@@ -90,15 +108,15 @@
     <ng-container *ngIf="status === 'succeeded'">
       <!-- Headers -->
       @if (isIntroScreenEnabled) {
-        <ng-container *ngIf="!showHelpScreenData && !showChat">
-          <app-header
-            [showBackButton]="!!selectedOption || !!selectedNestedOption"
-            [showLogo]="true"
-            (onBack)="handleBack()"
-            (onClose)="handleClosePopup()"
-            [language]="currentLang"
-          ></app-header>
-        </ng-container>
+      <ng-container *ngIf="!showHelpScreenData && !showChat">
+        <app-header
+          [showBackButton]="!!selectedOption || !!selectedNestedOption"
+          [showLogo]="true"
+          (onBack)="handleBack()"
+          (onClose)="handleClosePopup()"
+          [language]="currentLang"
+        ></app-header>
+      </ng-container>
       }
 
       <ng-container *ngIf="showHelpScreenData && !showChat">
@@ -106,14 +124,28 @@
           [showCloseButton]="!isIntroScreenEnabled"
           [showBackButton]="isIntroScreenEnabled && showHelpScreenData"
           [showLogo]="false"
-          (onClose)="isIntroScreenEnabled ? handleHideHelpScreenData() : handleClosePopup()"
+          (onClose)="
+            isIntroScreenEnabled
+              ? handleHideHelpScreenData()
+              : handleClosePopup()
+          "
           (onBack)="isIntroScreenEnabled ? handleBack() : handleClosePopup()"
           [language]="currentLang"
         ></app-header>
 
         <ng-container *ngIf="showHelpScreenData && sessionId">
-          <app-button variant="icon-bg" (click)="handleShowChat()" class="chat-button" className="button--icon">
-            <svg class="icon-full" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <app-button
+            variant="icon-bg"
+            (click)="handleShowChat()"
+            class="chat-button"
+            className="button--icon"
+          >
+            <svg
+              class="icon-full"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M17.5 3.83801C15.9806 2.95874 14.2555 2.49712 12.5 2.50001C6.977 2.50001 2.5 6.97701 2.5 12.5C2.5 14.1 2.876 15.612 3.543 16.953C3.721 17.309 3.78 17.716 3.677 18.101L3.082 20.327C3.02307 20.5473 3.02312 20.7792 3.08216 20.9995C3.14119 21.2198 3.25712 21.4206 3.41831 21.5819C3.57951 21.7432 3.7803 21.8593 4.00053 21.9184C4.22075 21.9776 4.45267 21.9778 4.673 21.919L6.899 21.323C7.28538 21.2254 7.69414 21.2727 8.048 21.456C9.43095 22.1446 10.9551 22.502 12.5 22.5C18.023 22.5 22.5 18.023 22.5 12.5C22.5 10.679 22.013 8.97001 21.162 7.50001"
                 stroke="white"
@@ -146,7 +178,7 @@
           [messages]="messages"
           [needsAgent]="needsAgent"
           [assistantStatus]="assistantStatus"
-          [isSignalRConnected]="isSignalRConnected"
+          [isAblyConnected]="isAblyConnected"
           [isChatClosed]="isChatClosed"
           (sendMessageEvent)="sendMessage($event)"
           [currentLang]="currentLang"
@@ -157,106 +189,136 @@
       <!-- Main Content -->
       <div class="main-content" *ngIf="!showChat">
         @if (isIntroScreenEnabled) {
-          <ng-container *ngIf="!showHelpScreenData">
-            <div class="intro-section">
-              <h1 class="intro-title">{{ 'ChatIntroMessage' | translate }}</h1>
-            </div>
+        <ng-container *ngIf="!showHelpScreenData">
+          <div class="intro-section">
+            <h1 class="intro-title">{{ "ChatIntroMessage" | translate }}</h1>
+          </div>
 
-            <div class="cards-section">
-              <app-card variant="rounded">
-                <app-card-content>
-                  <div class="card-content">
-                    <div class="babylai-info">
-                      <div class="logo-container">
-                        <svg class="logo" viewBox="0 0 55 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M8.53125 19.1353C8.53125 12.2804 14.0883 6.72339 20.9432 6.72339H41.6298C48.4847 6.72339 54.0418 12.2804 54.0418 19.1353V52.2339H20.9432C14.0883 52.2339 8.53125 46.6769 8.53125 39.8219V19.1353Z"
-                            fill="#E5E5E5"
-                          />
-                          <path
-                            d="M0 12.412C0 5.55702 5.55702 0 12.412 0H33.0985C39.9535 0 45.5105 5.55702 45.5105 12.412V33.0985C45.5105 39.9535 39.9535 45.5105 33.0985 45.5105H0V12.412Z"
-                            fill="white"
-                          />
-                          <path
-                            d="M14.3684 15.2203C14.3696 15.2162 14.3701 15.2142 14.3704 15.2132C14.5505 14.5816 15.4457 14.5816 15.6258 15.2132C15.6261 15.2142 15.6267 15.2162 15.6278 15.2203C15.6309 15.2311 15.6324 15.2365 15.6338 15.2416C16.4708 18.1971 18.7808 20.5071 21.7364 21.3441C21.7414 21.3455 21.7468 21.3471 21.7576 21.3501C21.7617 21.3512 21.7637 21.3518 21.7647 21.3521C22.3963 21.5322 22.3963 22.4274 21.7647 22.6075C21.7637 22.6078 21.7617 22.6084 21.7576 22.6095C21.7468 22.6126 21.7414 22.6141 21.7364 22.6155C18.7808 23.4525 16.4708 25.7625 15.6338 28.7181C15.6324 28.7231 15.6309 28.7285 15.6278 28.7393C15.6267 28.7434 15.6261 28.7454 15.6258 28.7464C15.4457 29.378 14.5505 29.378 14.3704 28.7464C14.3701 28.7454 14.3696 28.7434 14.3684 28.7393C14.3654 28.7285 14.3638 28.7231 14.3624 28.7181C13.5254 25.7625 11.2154 23.4525 8.25988 22.6155C8.25481 22.6141 8.24942 22.6126 8.23864 22.6095C8.23454 22.6084 8.2325 22.6078 8.23155 22.6075C7.5999 22.4274 7.5999 21.5322 8.23155 21.3521C8.2325 21.3518 8.23454 21.3512 8.23864 21.3501C8.24942 21.3471 8.25481 21.3455 8.25988 21.3441C11.2154 20.5071 13.5254 18.1971 14.3624 15.2416C14.3638 15.2365 14.3654 15.2311 14.3684 15.2203Z"
-                            fill="#AD49E1"
-                          />
-                          <path
-                            d="M36.7198 21.8503C36.7198 24.9207 34.2886 27.4098 31.2896 27.4098C28.2906 27.4098 25.8594 24.9207 25.8594 21.8503C25.8594 18.7799 28.2906 16.2908 31.2896 16.2908C34.2886 16.2908 36.7198 18.7799 36.7198 21.8503Z"
-                            fill="#AD49E1"
-                          />
-                        </svg>
-                      </div>
-                      <div class="info-text">
-                        <h4 class="info-title">{{ 'BabylaiTitle' | translate }}</h4>
-                        <p class="info-description">{{ 'BabylaiDescription' | translate }}</p>
-                      </div>
+          <div class="cards-section">
+            <app-card variant="rounded">
+              <app-card-content>
+                <div class="card-content">
+                  <div class="babylai-info">
+                    <div class="logo-container">
+                      <svg
+                        class="logo"
+                        viewBox="0 0 55 53"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.53125 19.1353C8.53125 12.2804 14.0883 6.72339 20.9432 6.72339H41.6298C48.4847 6.72339 54.0418 12.2804 54.0418 19.1353V52.2339H20.9432C14.0883 52.2339 8.53125 46.6769 8.53125 39.8219V19.1353Z"
+                          fill="#E5E5E5"
+                        />
+                        <path
+                          d="M0 12.412C0 5.55702 5.55702 0 12.412 0H33.0985C39.9535 0 45.5105 5.55702 45.5105 12.412V33.0985C45.5105 39.9535 39.9535 45.5105 33.0985 45.5105H0V12.412Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M14.3684 15.2203C14.3696 15.2162 14.3701 15.2142 14.3704 15.2132C14.5505 14.5816 15.4457 14.5816 15.6258 15.2132C15.6261 15.2142 15.6267 15.2162 15.6278 15.2203C15.6309 15.2311 15.6324 15.2365 15.6338 15.2416C16.4708 18.1971 18.7808 20.5071 21.7364 21.3441C21.7414 21.3455 21.7468 21.3471 21.7576 21.3501C21.7617 21.3512 21.7637 21.3518 21.7647 21.3521C22.3963 21.5322 22.3963 22.4274 21.7647 22.6075C21.7637 22.6078 21.7617 22.6084 21.7576 22.6095C21.7468 22.6126 21.7414 22.6141 21.7364 22.6155C18.7808 23.4525 16.4708 25.7625 15.6338 28.7181C15.6324 28.7231 15.6309 28.7285 15.6278 28.7393C15.6267 28.7434 15.6261 28.7454 15.6258 28.7464C15.4457 29.378 14.5505 29.378 14.3704 28.7464C14.3701 28.7454 14.3696 28.7434 14.3684 28.7393C14.3654 28.7285 14.3638 28.7231 14.3624 28.7181C13.5254 25.7625 11.2154 23.4525 8.25988 22.6155C8.25481 22.6141 8.24942 22.6126 8.23864 22.6095C8.23454 22.6084 8.2325 22.6078 8.23155 22.6075C7.5999 22.4274 7.5999 21.5322 8.23155 21.3521C8.2325 21.3518 8.23454 21.3512 8.23864 21.3501C8.24942 21.3471 8.25481 21.3455 8.25988 21.3441C11.2154 20.5071 13.5254 18.1971 14.3624 15.2416C14.3638 15.2365 14.3654 15.2311 14.3684 15.2203Z"
+                          fill="#AD49E1"
+                        />
+                        <path
+                          d="M36.7198 21.8503C36.7198 24.9207 34.2886 27.4098 31.2896 27.4098C28.2906 27.4098 25.8594 24.9207 25.8594 21.8503C25.8594 18.7799 28.2906 16.2908 31.2896 16.2908C34.2886 16.2908 36.7198 18.7799 36.7198 21.8503Z"
+                          fill="#AD49E1"
+                        />
+                      </svg>
                     </div>
-                    <app-button variant="default" [fullWidth]="true" (click)="handleShowHelpScreenData()">
-                      {{ 'ChatNow' | translate }}
-                    </app-button>
+                    <div class="info-text">
+                      <h4 class="info-title">
+                        {{ "BabylaiTitle" | translate }}
+                      </h4>
+                      <p class="info-description">
+                        {{ "BabylaiDescription" | translate }}
+                      </p>
+                    </div>
                   </div>
-                </app-card-content>
-              </app-card>
+                  <app-button
+                    variant="default"
+                    [fullWidth]="true"
+                    (click)="handleShowHelpScreenData()"
+                  >
+                    {{ "ChatNow" | translate }}
+                  </app-button>
+                </div>
+              </app-card-content>
+            </app-card>
 
-              <app-card variant="rounded">
-                <app-card-content>
-                  <div class="action-card">
-                    <p class="action-text">{{ 'TryBableAI' | translate }}</p>
-                    <app-button variant="icon-bg" (click)="navigateToUrl('https://babylai.net/signup')">
-                      <svg
-                        width="100%"
-                        height="100%"
-                        [ngClass]="{ icon: true, 'icon-rtl': currentLang === 'ar' }"
-                        viewBox="0 0 9 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </app-button>
-                  </div>
-                </app-card-content>
-              </app-card>
+            <app-card variant="rounded">
+              <app-card-content>
+                <div class="action-card">
+                  <p class="action-text">{{ "TryBableAI" | translate }}</p>
+                  <app-button
+                    variant="icon-bg"
+                    (click)="navigateToUrl('https://babylai.net/signup')"
+                  >
+                    <svg
+                      width="100%"
+                      height="100%"
+                      [ngClass]="{
+                        icon: true,
+                        'icon-rtl': currentLang === 'ar'
+                      }"
+                      viewBox="0 0 9 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </app-button>
+                </div>
+              </app-card-content>
+            </app-card>
 
-              <app-card variant="rounded">
-                <app-card-content>
-                  <div class="action-card">
-                    <p class="action-text">{{ 'ContactUs' | translate }}</p>
-                    <app-button variant="icon-bg" (click)="navigateToUrl('https://babylai.net')">
-                      <svg
-                        width="100%"
-                        height="100%"
-                        [ngClass]="{ icon: true, 'icon-rtl': currentLang === 'ar' }"
-                        viewBox="0 0 9 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </app-button>
-                  </div>
-                </app-card-content>
-              </app-card>
-            </div>
-          </ng-container>
+            <app-card variant="rounded">
+              <app-card-content>
+                <div class="action-card">
+                  <p class="action-text">{{ "ContactUs" | translate }}</p>
+                  <app-button
+                    variant="icon-bg"
+                    (click)="navigateToUrl('https://babylai.net')"
+                  >
+                    <svg
+                      width="100%"
+                      height="100%"
+                      [ngClass]="{
+                        icon: true,
+                        'icon-rtl': currentLang === 'ar'
+                      }"
+                      viewBox="0 0 9 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </app-button>
+                </div>
+              </app-card-content>
+            </app-card>
+          </div>
+        </ng-container>
         }
 
         <ng-container *ngIf="showHelpScreenData">
           <!-- <img src="/images/stars.svg" alt="help-center-widget-icon" class="stars" /> -->
-          <svg class="stars" viewBox="0 0 244 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            class="stars"
+            viewBox="0 0 244 196"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <g opacity="0.15">
               <path
                 d="M61.0903 66.4434C61.101 66.4056 61.1063 66.3867 61.1088 66.3779C62.7734 60.5407 71.046 60.5407 72.7106 66.3779C72.7131 66.3867 72.7184 66.4056 72.7291 66.4434C72.7572 66.5431 72.7712 66.5929 72.7845 66.6397C80.5193 93.9529 101.867 115.3 129.18 123.035C129.227 123.048 129.276 123.062 129.376 123.09C129.414 123.101 129.433 123.106 129.441 123.109C135.279 124.773 135.279 133.046 129.441 134.711C129.433 134.713 129.414 134.718 129.376 134.729C129.276 134.757 129.227 134.771 129.18 134.784C101.867 142.519 80.5193 163.867 72.7845 191.18C72.7712 191.227 72.7572 191.276 72.7291 191.376C72.7184 191.414 72.7131 191.433 72.7106 191.441C71.046 197.279 62.7734 197.279 61.1088 191.441C61.1063 191.433 61.101 191.414 61.0903 191.376C61.0622 191.276 61.0482 191.227 61.035 191.18C53.3002 163.867 31.9529 142.519 4.63971 134.784C4.59292 134.771 4.54309 134.757 4.44342 134.729C4.40559 134.718 4.38668 134.713 4.37792 134.711C-1.45931 133.046 -1.45931 124.773 4.37792 123.109C4.38668 123.106 4.40559 123.101 4.44342 123.09C4.54309 123.062 4.59292 123.048 4.63971 123.035C31.9529 115.3 53.3002 93.9529 61.035 66.6397C61.0482 66.5929 61.0622 66.5431 61.0903 66.4434Z"
@@ -273,14 +335,22 @@
             </g>
           </svg>
 
-          <app-help-screen-data [helpScreenData]="helpScreenData" (handleStartNewChat)="handleStartNewChat($event)"></app-help-screen-data>
+          <app-help-screen-data
+            [helpScreenData]="helpScreenData"
+            (handleStartNewChat)="handleStartNewChat($event)"
+          ></app-help-screen-data>
         </ng-container>
       </div>
 
       <!-- Footer -->
       <div class="footer">
-        <a href="https://babylai.net" target="_blank" class="footer-link" [ngClass]="{ 'light-text': !showHelpScreenData && !showChat }">
-          {{ 'PoweredByBabylAI' | translate }}
+        <a
+          href="https://babylai.net"
+          target="_blank"
+          class="footer-link"
+          [ngClass]="{ 'light-text': !showHelpScreenData && !showChat }"
+        >
+          {{ "PoweredByBabylAI" | translate }}
         </a>
       </div>
     </ng-container>
