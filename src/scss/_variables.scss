@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Border Radius
 $radius: var(--radius);
 $radius-lg: 0.5rem;
@@ -9,164 +11,164 @@ $radius-3xl: 1.5rem;
 
 // Spacing
 $spacing: (
-  '0': 0,
-  '1': 0.25rem,
-  '2': 0.5rem,
-  '3': 0.75rem,
-  '4': 1rem,
-  '5': 1.25rem,
-  '6': 1.5rem,
-  '8': 2rem,
-  '10': 2.5rem,
-  '12': 3rem,
-  '14': 3.5rem,
-  '16': 4rem,
-  '20': 5rem,
-  '28': 7rem,
-  '90': 22.5rem
+  "0": 0,
+  "1": 0.25rem,
+  "2": 0.5rem,
+  "3": 0.75rem,
+  "4": 1rem,
+  "5": 1.25rem,
+  "6": 1.5rem,
+  "8": 2rem,
+  "10": 2.5rem,
+  "12": 3rem,
+  "14": 3.5rem,
+  "16": 4rem,
+  "20": 5rem,
+  "28": 7rem,
+  "90": 22.5rem,
 );
 
 // Sizes
 $sizes: (
-  'full': 100%,
-  '60': 60px,
-  '360': 360px,
-  '684': 684px,
-  '800': 800px,
-  '85': 85%
+  "full": 100%,
+  "60": 60px,
+  "360": 360px,
+  "684": 684px,
+  "800": 800px,
+  "85": 85%,
 );
 
 // Transitions
 $transitions: (
-  'transform': transform 0.2s ease-out
+  "transform": transform 0.2s ease-out,
 );
 
 // Z-index
 $z-index: (
-  '50': 50,
-  '1000': 1000
+  "50": 50,
+  "1000": 1000,
 );
 
 // Font Sizes
 $font-sizes: (
-  'xs': (
+  "xs": (
     size: 0.75rem,
-    line-height: 1rem
+    line-height: 1rem,
   ),
-  'sm': (
+  "sm": (
     size: 0.875rem,
-    line-height: 1.25rem
+    line-height: 1.25rem,
   ),
-  'base': (
+  "base": (
     size: 1rem,
-    line-height: 1.5rem
+    line-height: 1.5rem,
   ),
-  '6xl': (
+  "6xl": (
     size: 3.75rem,
-    line-height: 1
+    line-height: 1,
   ),
-  '4.5xl': (
+  "4.5xl": (
     size: 2.875rem,
-    line-height: 2.875rem
+    line-height: 2.875rem,
   ),
-  '3.4xl': (
+  "3.4xl": (
     size: 2.25rem,
-    line-height: 2.25rem
-  )
+    line-height: 2.25rem,
+  ),
 );
 
 // Font Weights
 $font-weights: (
-  'normal': 400,
-  'semibold': 600,
-  'bold': 700
+  "normal": 400,
+  "semibold": 600,
+  "bold": 700,
 );
 
 // Colors
 $colors: (
-  'background': var(--background),
-  'foreground': var(--foreground),
-  'border-color': #606060,
-  'text-dark': #333333,
-  'black': #171717,
-  'pure-white': #ffffff
+  "background": var(--background),
+  "foreground": var(--foreground),
+  "border-color": #606060,
+  "text-dark": #333333,
+  "black": #171717,
+  "pure-white": #ffffff,
 );
 
 // Primary Colors
 $primary-colors: (
-  '100': #f6ecfc,
-  '200': #deb6f3,
-  '300': #d49cee,
-  '400': #c57fea,
-  '500': #ad49e1,
-  '600': #672b87,
-  '700': #451d5a,
-  '800': #220e2d,
-  '900': #110716,
-  '950': #0a0310,
-  'default': #ad49e1,
-  'foreground': #ffffff
+  "100": #f6ecfc,
+  "200": #deb6f3,
+  "300": #d49cee,
+  "400": #c57fea,
+  "500": #ad49e1,
+  "600": #672b87,
+  "700": #451d5a,
+  "800": #220e2d,
+  "900": #110716,
+  "950": #0a0310,
+  "default": #ad49e1,
+  "foreground": #ffffff,
 );
 
 // Shadows
 $shadows: (
-  'minimal': rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+  "minimal": rgba(100, 100, 111, 0.2) 0px 7px 29px 0px,
 );
 
 // Black-White Scale
 $black-white-scale: (
-  '50': #ffffff,
-  '100': #f3f3f3,
-  '200': #e2e2e2,
-  '300': #919191,
-  '400': #606060,
-  '500': #333333,
-  '600': #1f1f1f,
-  '700': #171717,
-  '800': #0a0a0a,
-  '900': #050505,
-  '950': #000000,
-  'default': #333333
+  "50": #ffffff,
+  "100": #f3f3f3,
+  "200": #e2e2e2,
+  "300": #919191,
+  "400": #606060,
+  "500": #333333,
+  "600": #1f1f1f,
+  "700": #171717,
+  "800": #0a0a0a,
+  "900": #050505,
+  "950": #000000,
+  "default": #333333,
 );
 
 // Functions to access variables
 @function color($key) {
-  @return map-get($colors, $key);
+  @return map.get($colors, $key);
 }
 
 @function primary($key) {
-  @return map-get($primary-colors, $key);
+  @return map.get($primary-colors, $key);
 }
 
 @function shadow($key) {
-  @return map-get($shadows, $key);
+  @return map.get($shadows, $key);
 }
 
 @function font-size($size) {
-  $font-map: map-get($font-sizes, $size);
-  @return map-get($font-map, 'size');
+  $font-map: map.get($font-sizes, $size);
+  @return map.get($font-map, "size");
 }
 
 @function spacing($key) {
-  @return map-get($spacing, $key);
+  @return map.get($spacing, $key);
 }
 
 @function z($key) {
-  @return map-get($z-index, $key);
+  @return map.get($z-index, $key);
 }
 
 @function transition($key) {
-  @return map-get($transitions, $key);
+  @return map.get($transitions, $key);
 }
 
 @function size($key) {
-  @return map-get($sizes, $key);
+  @return map.get($sizes, $key);
 }
 
 @function weight($key) {
-  @return map-get($font-weights, $key);
+  @return map.get($font-weights, $key);
 }
 
 @function black-white($key) {
-  @return map-get($black-white-scale, $key);
+  @return map.get($black-white-scale, $key);
 }

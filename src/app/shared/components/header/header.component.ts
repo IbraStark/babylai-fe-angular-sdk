@@ -1,9 +1,15 @@
-import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
-import { ButtonComponent } from '../button'
-import { TranslatePipe } from '../../../pipes/translate.pipe'
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
+import { ButtonComponent } from '../button';
+import { TranslatePipe } from '../../../pipes/translate.pipe';
 
-type HeaderType = 'standard' | 'minimal'
+type HeaderType = 'standard' | 'minimal';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +34,13 @@ type HeaderType = 'standard' | 'minimal'
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M7 15L1 8L2.5 6.25M7 1L5 3.333" stroke="#7A1CAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M7 15L1 8L2.5 6.25M7 1L5 3.333"
+            stroke="#7A1CAC"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </app-button>
       <app-button
@@ -38,16 +50,28 @@ type HeaderType = 'standard' | 'minimal'
         className="button--close-button"
         (click)="onClose.emit()"
       >
-        <svg width="40" height="40" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 55 55"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M33.8568 21.1458L21.1484 33.8541M21.1484 21.1458L33.8568 33.8541M14.7943 5.48404C18.6562 3.24921 23.0407 2.07593 27.5026 2.08329C41.5402 2.08329 52.9193 13.4623 52.9193 27.5C52.9193 41.5376 41.5402 52.9166 27.5026 52.9166C13.465 52.9166 2.08594 41.5376 2.08594 27.5C2.08594 22.8716 3.32373 18.5279 5.48669 14.7916"
-            stroke="white"
+            stroke="#AD49E1"
             stroke-width="3"
             stroke-linecap="round"
           />
         </svg>
       </app-button>
-      <svg *ngIf="showLogo" class="header__logo" viewBox="0 0 55 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        *ngIf="showLogo"
+        class="header__logo"
+        viewBox="0 0 55 53"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M8.53125 19.1353C8.53125 12.2804 14.0883 6.72339 20.9432 6.72339H41.6298C48.4847 6.72339 54.0418 12.2804 54.0418 19.1353V52.2339H20.9432C14.0883 52.2339 8.53125 46.6769 8.53125 39.8219V19.1353Z"
           fill="#E5E5E5"
@@ -66,8 +90,19 @@ type HeaderType = 'standard' | 'minimal'
         />
       </svg>
 
-      <app-button *ngIf="!showBackButton && !showCloseButton" variant="icon-only" class="header__close-button" (click)="onClose.emit()">
-        <svg width="40" height="40" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <app-button
+        *ngIf="!showBackButton && !showCloseButton"
+        variant="icon-only"
+        class="header__close-button"
+        (click)="onClose.emit()"
+      >
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 55 55"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M33.8568 21.1458L21.1484 33.8541M21.1484 21.1458L33.8568 33.8541M14.7943 5.48404C18.6562 3.24921 23.0407 2.07593 27.5026 2.08329C41.5402 2.08329 52.9193 13.4623 52.9193 27.5C52.9193 41.5376 41.5402 52.9166 27.5026 52.9166C13.465 52.9166 2.08594 41.5376 2.08594 27.5C2.08594 22.8716 3.32373 18.5279 5.48669 14.7916"
             stroke="white"
@@ -77,21 +112,21 @@ type HeaderType = 'standard' | 'minimal'
         </svg>
       </app-button>
     </div>
-  `
+  `,
 })
 export class HeaderComponent {
-  @Input() headerType: HeaderType = 'standard'
-  @Input() showBackButton = false
-  @Input() showLogo = true
-  @Input() logoSrc = '/logo-white.svg'
-  @Input() logoAlt = 'BabylAI Logo'
-  @Input() language = 'en'
-  @Input() showCloseButton = false
-  @Output() onBack = new EventEmitter<void>()
-  @Output() onClose = new EventEmitter<void>()
+  @Input() headerType: HeaderType = 'standard';
+  @Input() showBackButton = false;
+  @Input() showLogo = true;
+  @Input() logoSrc = '/logo-white.svg';
+  @Input() logoAlt = 'BabylAI Logo';
+  @Input() language = 'en';
+  @Input() showCloseButton = false;
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
 
   get isRtl(): boolean {
-    return this.language === 'ar'
+    return this.language === 'ar';
   }
 }
 
@@ -103,7 +138,12 @@ export class HeaderComponent {
   template: `
     <div class="chat-header">
       <div class="chat-header__actions">
-        <app-button size="small" variant="icon-bg" className="chat-header__button button--light-bg" (click)="onBack.emit()">
+        <app-button
+          size="small"
+          variant="icon-bg"
+          className="chat-header__button button--light-bg"
+          (click)="onBack.emit()"
+        >
           <svg
             width="8"
             height="16"
@@ -112,7 +152,13 @@ export class HeaderComponent {
             xmlns="http://www.w3.org/2000/svg"
             [style.transform]="isRtl ? 'rotate(180deg)' : 'rotate(0deg)'"
           >
-            <path d="M7 15L1 8L2.5 6.25M7 1L5 3.333" stroke="#7A1CAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M7 15L1 8L2.5 6.25M7 1L5 3.333"
+              stroke="#7A1CAC"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </app-button>
         <div class="chat-header__menu" data-menu-container>
@@ -122,16 +168,30 @@ export class HeaderComponent {
             className="chat-header__button button--light-bg"
             (click)="$event.stopPropagation(); isMenuOpen = !isMenuOpen"
           >
-            <svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="14"
+              height="4"
+              viewBox="0 0 14 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M3.25 1.8269C3.25 2.22473 3.09196 2.60626 2.81066 2.88756C2.52936 3.16887 2.14782 3.3269 1.75 3.3269C1.35218 3.3269 0.970644 3.16887 0.68934 2.88756C0.408035 2.60626 0.25 2.22473 0.25 1.8269C0.25 1.42908 0.408035 1.04755 0.68934 0.766244C0.970644 0.48494 1.35218 0.326904 1.75 0.326904C2.14782 0.326904 2.52936 0.48494 2.81066 0.766244C3.09196 1.04755 3.25 1.42908 3.25 1.8269ZM8.5 1.8269C8.5 2.22473 8.34196 2.60626 8.06066 2.88756C7.77936 3.16887 7.39782 3.3269 7 3.3269C6.60218 3.3269 6.22064 3.16887 5.93934 2.88756C5.65804 2.60626 5.5 2.22473 5.5 1.8269C5.5 1.42908 5.65804 1.04755 5.93934 0.766244C6.22064 0.48494 6.60218 0.326904 7 0.326904C7.39782 0.326904 7.77936 0.48494 8.06066 0.766244C8.34196 1.04755 8.5 1.42908 8.5 1.8269ZM13.75 1.8269C13.75 2.22473 13.592 2.60626 13.3107 2.88756C13.0294 3.16887 12.6478 3.3269 12.25 3.3269C11.8522 3.3269 11.4706 3.16887 11.1893 2.88756C10.908 2.60626 10.75 2.22473 10.75 1.8269C10.75 1.42908 10.908 1.04755 11.1893 0.766244C11.4706 0.48494 11.8522 0.326904 12.25 0.326904C12.6478 0.326904 13.0294 0.48494 13.3107 0.766244C13.592 1.04755 13.75 1.42908 13.75 1.8269Z"
                 fill="#AD49E1"
               />
             </svg>
           </app-button>
-          <div *ngIf="isMenuOpen" class="chat-header__menu-dropdown" [ngClass]="{ rtl: isRtl, ltr: !isRtl }">
+          <div
+            *ngIf="isMenuOpen"
+            class="chat-header__menu-dropdown"
+            [ngClass]="{ rtl: isRtl, ltr: !isRtl }"
+          >
             <div class="chat-header__menu-dropdown-content">
-              <button (click)="onClose.emit(); isMenuOpen = false" class="chat-header__menu-button" [ngClass]="{ rtl: isRtl, ltr: !isRtl }">
+              <button
+                (click)="onClose.emit(); isMenuOpen = false"
+                class="chat-header__menu-button"
+                [ngClass]="{ rtl: isRtl, ltr: !isRtl }"
+              >
                 {{ 'EndChat' | translate }}
               </button>
             </div>
@@ -139,7 +199,13 @@ export class HeaderComponent {
         </div>
       </div>
       <div class="chat-header__brand">
-        <svg width="39" height="38" viewBox="0 0 39 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="39"
+          height="38"
+          viewBox="0 0 39 38"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M6.14844 13.794C6.14844 8.85255 10.1544 4.84668 15.0959 4.84668H30.0083C34.9499 4.84668 38.9558 8.85255 38.9558 13.794V37.6537H15.0959C10.1544 37.6537 6.14844 33.6478 6.14844 28.7063V13.794Z"
             fill="#ECECEC"
@@ -161,28 +227,28 @@ export class HeaderComponent {
         <p>{{ 'BabylAI' | translate }}</p>
       </div>
     </div>
-  `
+  `,
 })
 export class ChatHeaderComponent {
-  isMenuOpen = false
-  @Input() showBackButton = false
-  @Input() showLogo = true
-  @Input() logoSrc = '/logo-white.svg'
-  @Input() logoAlt = 'BabylAI Logo'
-  @Input() language = 'en'
-  @Output() onBack = new EventEmitter<void>()
-  @Output() onClose = new EventEmitter<void>()
+  isMenuOpen = false;
+  @Input() showBackButton = false;
+  @Input() showLogo = true;
+  @Input() logoSrc = '/logo-white.svg';
+  @Input() logoAlt = 'BabylAI Logo';
+  @Input() language = 'en';
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
 
   get isRtl(): boolean {
-    return this.language === 'ar'
+    return this.language === 'ar';
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement
-    const menuContainer = target.closest('[data-menu-container]')
+    const target = event.target as HTMLElement;
+    const menuContainer = target.closest('[data-menu-container]');
     if (!menuContainer && this.isMenuOpen) {
-      this.isMenuOpen = false
+      this.isMenuOpen = false;
     }
   }
 }

@@ -227,20 +227,6 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
         );
 
         this.isAblyConnected = true;
-
-        // Add greeting message
-        this.messages.push({
-          id: Date.now(),
-          sender: 'assistant',
-          senderType: 3,
-          messageContent:
-            selectedOpt.assistant?.greeting ||
-            (this.currentLang === 'en'
-              ? 'Hello! How can I assist you today?'
-              : 'مرحباً! كيف يمكنني مساعدتك اليوم؟'),
-          sentAt: new Date(),
-          isSeen: true,
-        });
       }
 
       return data;
@@ -252,8 +238,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
 
   async sendMessage(messageText?: string) {
     const textToSend = messageText || this.messageText;
-    if (!textToSend.trim() || !this.isAblyConnected || this.isChatClosed)
-      return;
+    if (!textToSend.trim() || this.isChatClosed) return;
 
     try {
       this.assistantStatus = 'typing';
@@ -301,20 +286,6 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
     }
   }
 
-  async sendMessageToChatSession(chatSessionId: string, messageDto: any) {
-    try {
-      const response = await this.apiService.apiRequest(
-        `Client/ClientChatSession/${chatSessionId}/send-message`,
-        'POST',
-        messageDto
-      );
-      return await response.json();
-    } catch (error) {
-      console.error('Error sending message:', error);
-      throw error;
-    }
-  }
-
   handleReceiveMessage(
     message: string,
     senderType: string,
@@ -356,9 +327,19 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
 
     try {
       // Create chat session (includes Ably connection setup)
-      if (!this.sessionId) {
-        await this.createChatSession(option);
-      }
+      // Add greeting message
+      this.messages.push({
+        id: Date.now(),
+        sender: 'assistant',
+        senderType: 3,
+        messageContent:
+          option.assistant?.greeting ||
+          (this.currentLang === 'en'
+            ? 'Hello! How can I assist you today?'
+            : 'مرحباً! كيف يمكنني مساعدتك اليوم؟'),
+        sentAt: new Date(),
+        isSeen: true,
+      });
 
       // Update UI state
       this.showChat = true;

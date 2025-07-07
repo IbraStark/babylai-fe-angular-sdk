@@ -168,10 +168,7 @@
       <button
         type="submit"
         [disabled]="
-          !messageContent.trim() ||
-          !isAblyConnected ||
-          isChatClosed ||
-          assistantStatus === 'typing'
+          !messageContent.trim() || isChatClosed || assistantStatus === 'typing'
         "
         class="chat__send-button"
       >
