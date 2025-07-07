@@ -69,12 +69,7 @@ export class ChatComponent implements OnInit {
   }
 
   handleSendMessage(): void {
-    if (
-      !this.messageContent.trim() ||
-      this.loading ||
-      this.assistantStatus === 'typing'
-    )
-      return;
+    if (!this.messageContent.trim() || this.loading) return;
     this.sendMessageEvent.emit(this.messageContent);
     this.messageContent = '';
     this.adjustTextareaHeight();

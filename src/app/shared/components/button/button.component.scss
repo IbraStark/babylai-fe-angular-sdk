@@ -1,4 +1,4 @@
-@use '../../../../scss/variables' as *;
+@use "../../../../scss/variables" as *;
 
 .button {
   cursor: pointer;
@@ -18,82 +18,82 @@
 
   // Base styles
   &--default {
-    background-color: primary('default');
-    color: primary('foreground');
-    padding: spacing('2') spacing('4');
+    background-color: primary("default");
+    color: primary("foreground");
+    padding: spacing("2") spacing("4");
     border-radius: $radius-full;
     border: none;
 
     &:hover {
-      background-color: primary('700');
+      background-color: primary("700");
     }
   }
 
   // Outline variant
   &--outline {
     background-color: transparent;
-    color: primary('default');
-    border: 1px solid primary('default');
-    padding: spacing('2') spacing('4');
+    color: primary("default");
+    border: 1px solid primary("default");
+    padding: spacing("2") spacing("4");
     border-radius: $radius-full;
 
     &:hover {
-      background-color: rgba(primary('default'), 0.1);
+      background-color: rgba(primary("default"), 0.1);
     }
   }
 
   // Icon with background variant
   &--icon-bg {
-    background-color: primary('default');
-    color: primary('foreground');
-    padding: spacing('3') spacing('4');
+    background-color: primary("default");
+    color: primary("foreground");
+    padding: spacing("3") spacing("4");
     border-radius: $radius-full;
-    width: spacing('12');
-    height: spacing('12');
+    width: spacing("12");
+    height: spacing("12");
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
 
     &:hover {
-      background-color: primary('700');
+      background-color: primary("700");
     }
 
     // Background color modifiers
     &.button--white-bg {
-      background-color: black-white('50');
+      background-color: black-white("50");
 
       &:hover {
-        background-color: black-white('100');
+        background-color: black-white("100");
       }
     }
 
     &.button--light-bg {
-      background-color: primary('100');
+      background-color: primary("100");
 
       &:hover {
-        background-color: primary('200');
+        background-color: primary("200");
       }
     }
 
     &.button--close-button {
-      background-color: primary('default');
-      padding: spacing('2');
+      background-color: #fff;
+      padding: spacing("2");
       border: none;
 
       &:hover {
-        background-color: rgba(primary('default'), 0.8);
+        background-color: rgba(primary("default"), 0.8);
       }
     }
 
     &.button--small {
-      padding: spacing('1') spacing('2');
-      width: spacing('8');
-      height: spacing('8');
+      padding: spacing("1") spacing("2");
+      width: spacing("8");
+      height: spacing("8");
     }
 
     &.button--icon {
-      padding: spacing('3');
+      padding: spacing("3");
     }
   }
 
@@ -101,7 +101,7 @@
   &--icon-only {
     background-color: transparent;
     border: none;
-    padding: spacing('1');
+    padding: spacing("1");
     display: flex;
     align-items: center;
     justify-content: center;
