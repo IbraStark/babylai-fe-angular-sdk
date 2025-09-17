@@ -91,15 +91,13 @@
         >
           <app-card-content>
             <div class="chat__message-content">
-              <markdown
-                [data]="cleanMessageContent(message.messageContent)"
-                ngPreserveWhitespaces
+              <app-markdown-renderer
+                [content]="cleanMessageContent(message.messageContent)"
                 [inline]="false"
-                class="prose"
-                [class.prose-invert]="message.senderType === 1"
+                [cssClass]="'prose' + (message.senderType === 1 ? ' prose-invert' : '')"
                 [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
               >
-              </markdown>
+              </app-markdown-renderer>
             </div>
           </app-card-content>
         </app-card>

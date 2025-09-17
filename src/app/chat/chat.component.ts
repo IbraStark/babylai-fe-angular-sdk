@@ -12,12 +12,18 @@ import { FormsModule } from '@angular/forms';
 import { CardComponent, CardContentComponent } from '../shared/components/card';
 import { LoadingComponent } from '../shared/components/loading/loading.component';
 import { TranslatePipe } from '../pipes/translate.pipe';
-import { MarkdownModule } from 'ngx-markdown';
-import 'prismjs';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-json';
+import { MarkdownRendererComponent } from '../shared/components/markdown-renderer';
+
+// Conditionally import Prism.js components
+try {
+  eval('require')('prismjs');
+  eval('require')('prismjs/components/prism-typescript');
+  eval('require')('prismjs/components/prism-javascript');
+  eval('require')('prismjs/components/prism-css');
+  eval('require')('prismjs/components/prism-json');
+} catch (e) {
+  console.warn('Prism.js not available, syntax highlighting will be disabled');
+}
 
 interface Message {
   id: string | number;
@@ -38,7 +44,7 @@ interface Message {
     CardContentComponent,
     LoadingComponent,
     TranslatePipe,
-    MarkdownModule,
+    MarkdownRendererComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],

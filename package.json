@@ -1,6 +1,6 @@
 {
   "name": "@aslaluroba/help-center",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,9 +14,9 @@
     "version:patch": "npm version patch --no-git-tag-version",
     "version:minor": "npm version minor --no-git-tag-version",
     "version:major": "npm version major --no-git-tag-version",
-    "publish:patch": "yarn clean && yarn version:patch && yarn build:lib && cd dist/help-center && yarn publish --non-interactive --no-git-tag-version",
-    "publish:minor": "yarn clean && yarn version:minor && yarn build:lib && cd dist/help-center && yarn publish --non-interactive --no-git-tag-version",
-    "publish:major": "yarn clean && yarn version:major && yarn build:lib && cd dist/help-center && yarn publish --non-interactive --no-git-tag-version"
+    "publish:patch": "yarn clean && yarn version:patch && yarn build:lib && cd dist/help-center && yarn publish --no-git-tag-version",
+    "publish:minor": "yarn clean && yarn version:minor && yarn build:lib && cd dist/help-center && yarn publish --no-git-tag-version",
+    "publish:major": "yarn clean && yarn version:major && yarn build:lib && cd dist/help-center && yarn publish --no-git-tag-version"
   },
   "private": false,
   "license": "MIT",
@@ -35,15 +35,7 @@
     "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
-  },
-  "peerDependencies": {
-    "@angular/common": "^19.1.0",
-    "@angular/core": "^19.1.0",
-    "@angular/forms": "^19.1.0",
-    "marked": "^15.0.7",
-    "ngx-markdown": "^19.1.0",
-    "prismjs": "^1.29.0",
+    "zone.js": "~0.15.0",
     "ably": "^2.9.0"
   },
   "devDependencies": {
