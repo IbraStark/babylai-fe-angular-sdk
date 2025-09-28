@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,8 +6,53 @@ import { Injectable } from '@angular/core';
 export class ThemeService {
   private primaryColor: string = '#ad49e1';
   private logoUrl: string = '';
+  private isDarkMode = signal(false);
 
-  constructor() {}
+  constructor() {
+    this.initializeDarkModeDetection();
+  }
+
+  /**
+   * Initialize dark mode detection based on browser preferences
+   */
+  private initializeDarkModeDetection(): void {
+    // Check initial preference
+    this.updateDarkModeState();
+
+    // Listen for changes in color scheme preference
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      // Add listener for changes
+      mediaQuery.addEventListener('change', () => {
+        this.updateDarkModeState();
+      });
+    }
+  }
+
+  /**
+   * Update dark mode state based on current browser preference
+   */
+  private updateDarkModeState(): void {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.isDarkMode.set(isDark);
+    }
+  }
+
+  /**
+   * Get current dark mode state
+   */
+  getDarkModeState() {
+    return this.isDarkMode.asReadonly();
+  }
+
+  /**
+   * Check if dark mode is currently active
+   */
+  isDarkModeActive(): boolean {
+    return this.isDarkMode();
+  }
 
   setPrimaryColor(color: string): void {
     this.primaryColor = color;

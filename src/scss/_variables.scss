@@ -91,10 +91,10 @@ $font-weights: (
 $colors: (
   "background": var(--background),
   "foreground": var(--foreground),
-  "border-color": #606060,
-  "text-dark": #333333,
-  "black": #171717,
-  "pure-white": #ffffff,
+  "border-color": var(--border),
+  "text-dark": var(--foreground),
+  "black": var(--black-white-700),
+  "pure-white": var(--black-white-50),
 );
 
 // Primary Colors
@@ -120,18 +120,18 @@ $shadows: (
 
 // Black-White Scale
 $black-white-scale: (
-  "50": #ffffff,
-  "100": #f3f3f3,
-  "200": #e2e2e2,
-  "300": #919191,
-  "400": #606060,
-  "500": #333333,
-  "600": #1f1f1f,
-  "700": #171717,
-  "800": #0a0a0a,
-  "900": #050505,
-  "950": #000000,
-  "default": #333333,
+  "50": var(--black-white-50),
+  "100": var(--black-white-100),
+  "200": var(--black-white-200),
+  "300": var(--black-white-300),
+  "400": var(--black-white-400),
+  "500": var(--black-white-500),
+  "600": var(--black-white-600),
+  "700": var(--black-white-700),
+  "800": var(--black-white-800),
+  "900": var(--black-white-900),
+  "950": var(--black-white-950),
+  "default": var(--black-white-default),
 );
 
 // Functions to access variables

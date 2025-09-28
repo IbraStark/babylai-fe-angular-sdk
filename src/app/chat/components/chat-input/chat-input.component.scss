@@ -15,9 +15,9 @@
   padding-inline: spacing("4") spacing("16");
   padding-block: spacing("4");
   border-radius: $radius-full;
-  border: 1px solid black-white("200");
-  background-color: black-white("50");
-  color: black-white("950");
+  border: 1px solid var(--border);
+  background-color: var(--input);
+  color: var(--foreground);
   font-size: font-size("base");
   transition: all 0.2s ease-in-out;
   font-size: font-size("sm");
@@ -28,12 +28,15 @@
   }
 
   &:disabled {
-    background-color: black-white("200");
+    background-color: var(--muted);
+    color: var(--muted-foreground);
     cursor: not-allowed;
+    opacity: 0.6;
   }
 
   &::placeholder {
-    color: black-white("400");
+    color: var(--muted-foreground);
+    opacity: 0.8;
   }
 }
 
@@ -52,14 +55,17 @@
   background-color: primary("default");
   transition: all 0.2s ease-in-out;
   opacity: 1;
+  border: none;
 
   &:hover:not(:disabled) {
-    background-color: primary("default");
+    background-color: primary("600");
+    transform: translateY(-50%) scale(1.05);
   }
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.75;
+    opacity: 0.5;
+    background-color: var(--muted);
   }
 
   &-icon {

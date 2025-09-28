@@ -1,0 +1,109 @@
+@if (isOpen) {
+<div class="review-dialog-overlay" (click)="onClose()">
+  <div class="review-dialog" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="review-dialog__header">
+      <h3 class="review-dialog__title">{{ 'ReviewDialogTitle' | translate }}</h3>
+      <button class="review-dialog__close" (click)="onClose()" type="button" [disabled]="isSubmitting">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Divider -->
+    <div class="review-dialog__divider"></div>
+
+    <!-- Content -->
+    <div class="review-dialog__content">
+      <p class="review-dialog__description">
+        {{ 'ReviewDialogDescription' | translate }}
+      </p>
+
+      <!-- Rating Section -->
+      <div class="review-dialog__rating-section">
+        <label class="review-dialog__label">{{ 'ReviewDialogRatingLabel' | translate }}</label>
+        <div class="review-dialog__stars">
+          @for (star of getStarsArray(); track star) {
+          <button 
+            class="review-dialog__star" 
+            [class.review-dialog__star--filled]="isStarFilled(star)"
+            [class.review-dialog__star--error]="ratingError"
+            [disabled]="isSubmitting"
+            (click)="onRatingClick(star)"
+            type="button"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+                    stroke="currentColor" 
+                    stroke-width="2" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    [attr.fill]="isStarFilled(star) ? 'currentColor' : 'none'"/>
+            </svg>
+          </button>
+          }
+        </div>
+        @if (ratingError) {
+        <div class="review-dialog__error">{{ ratingError }}</div>
+        }
+      </div>
+
+      <!-- Comment Section -->
+      <div class="review-dialog__comment-section">
+        <label class="review-dialog__label">{{ 'ReviewDialogCommentLabel' | translate }}</label>
+        <textarea 
+          class="review-dialog__textarea"
+          [class.review-dialog__textarea--error]="commentError"
+          [(ngModel)]="comment"
+          (ngModelChange)="onCommentChange()"
+          [placeholder]="'ReviewDialogCommentPlaceholder' | translate"
+          [maxlength]="getCommentMaxLength()"
+          [disabled]="isSubmitting"
+          rows="4"
+        ></textarea>
+        <div class="review-dialog__comment-info">
+          <div class="review-dialog__char-count">
+            {{ getCommentLength() }}/{{ getCommentMaxLength() }} characters
+            @if (getCommentLength() < getCommentMinLength()) {
+              (minimum {{ getCommentMinLength() }})
+            }
+          </div>
+          @if (commentError) {
+          <div class="review-dialog__error">{{ commentError }}</div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="review-dialog__divider"></div>
+
+    <!-- Actions -->
+    <div class="review-dialog__actions">
+      <app-button 
+        variant="default" 
+        [fullWidth]="true" 
+        [disabled]="isSubmitting"
+        (click)="onSubmitReview()"
+        class="review-dialog__submit-btn"
+      >
+        @if (isSubmitting) {
+          Submitting...
+        } @else {
+          {{ 'ReviewDialogSubmitButton' | translate }}
+        }
+      </app-button>
+      <app-button 
+        variant="outline" 
+        [fullWidth]="true" 
+        [disabled]="isSubmitting"
+        (click)="onSkip()"
+        class="review-dialog__skip-btn"
+      >
+        {{ 'ReviewDialogSkipButton' | translate }}
+      </app-button>
+    </div>
+  </div>
+</div>
+}

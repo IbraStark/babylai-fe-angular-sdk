@@ -9,7 +9,7 @@
   .intro-title {
     font-size: font-size('3.4xl');
     font-weight: weight('bold');
-    color: black-white('50');
+    color: var(--card-foreground);
     line-height: 3.5rem;
   }
 }
@@ -85,13 +85,13 @@
 
   .info-title {
     font-size: font-size('base');
-    color: black-white('400');
+    color: var(--card-foreground);
     font-weight: weight('semibold');
   }
 
   .info-description {
     font-size: font-size('base');
-    color: black-white('800');
+    color: var(--card-foreground);
   }
 }
 
@@ -104,7 +104,7 @@
 
   .action-text {
     font-size: font-size('base');
-    color: black-white('800');
+    color: var(--card-foreground);
   }
 
   .icon {

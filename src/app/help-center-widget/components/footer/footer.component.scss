@@ -8,13 +8,13 @@
 
   .footer-link {
     font-size: font-size('xs');
-    color: black-white('300');
+    color: var(--card-foreground);
     width: size('full');
     text-align: center;
     font-weight: weight('bold');
 
     &.light-text {
-      color: black-white('50');
+      color: var(--card-foreground);
     }
   }
 }

@@ -1,6 +1,6 @@
 # @aslaluroba/help-center
 
-A powerful and customizable help center widget for Angular applications with real-time chat functionality, AI assistance, and multi-language support.
+A powerful and customizable help center widget for Angular applications with real-time chat functionality, AI assistance, multi-language support, and user feedback collection.
 
 ## Installation
 
@@ -73,6 +73,55 @@ export class AppComponent implements OnInit {
   }
 }
 ```
+
+## User Feedback System
+
+The widget includes a comprehensive user feedback system that collects ratings and comments after meaningful chat interactions:
+
+### Review Dialog Features
+- **Star Rating**: 1-5 star rating system with visual feedback
+- **Comment Collection**: Text area for detailed feedback (10-500 characters)
+- **Smart Display**: Only appears after meaningful chat interactions (not just welcome messages)
+- **Validation**: Real-time validation with error messages
+- **API Integration**: Automatically submits reviews to your backend
+- **Multi-language**: Fully translated interface
+
+### Review API Endpoint
+Reviews are submitted to: `POST /Client/ClientChatSession/{sessionId}/review`
+
+```typescript
+// Review payload structure
+{
+  "rating": 5,           // 1-5 stars
+  "comment": "Great help!" // 10-500 characters
+}
+```
+
+### Review Dialog Behavior
+- **Triggers**: Only after ending a chat with meaningful interaction
+- **Skips**: If user just opens chat without interaction
+- **Validation**: Client-side validation with real-time feedback
+- **Submission**: Closes chat session first, then submits review
+- **Error Handling**: Graceful handling of submission failures
+
+## Smart Session Management
+
+The widget includes intelligent chat session management to provide a seamless user experience:
+
+### Confirmation Dialogs
+- **End Chat Confirmation**: Prevents accidental loss of active conversations
+- **Start New Chat Confirmation**: Warns users when switching between chat sessions
+- **Smart Detection**: Distinguishes between welcome messages and meaningful interactions
+
+### Session Persistence
+- **Back Navigation**: Chat state maintained when navigating back to help screen
+- **Return to Chat**: Users can return to their previous conversation
+- **Duplicate Prevention**: Intelligent message handling prevents duplicate welcome messages
+
+### Session States
+- **Active Session**: User has meaningful interaction (not just welcome message)
+- **Welcome Only**: User opened chat but didn't interact meaningfully
+- **Clean State**: No previous session or messages
 
 ## Language Support
 
@@ -234,6 +283,17 @@ export class AppComponent {
 }
 ```
 
+## Features
+
+- **Real-time Chat**: WebSocket-based messaging with Ably integration
+- **AI Assistant**: Intelligent responses and conversation management
+- **Multi-language Support**: English and Arabic with RTL support
+- **User Feedback**: Review dialog for collecting ratings and comments
+- **Smart Session Management**: Intelligent chat session handling with confirmation dialogs
+- **Customizable Theming**: Dynamic color schemes and logo customization
+- **Responsive Design**: Mobile-first approach with accessibility features
+- **Duplicate Prevention**: Smart message handling to prevent duplicate content
+
 ## Props
 
 | Prop                | Type     | Required | Default      | Description                                      |
@@ -280,6 +340,30 @@ export class AppComponent {
   [logoUrl]="'/my-logo.png'">
 </app-help-center-widget>
 ```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Duplicate Welcome Messages**
+   - **Fixed**: The widget now intelligently detects and prevents duplicate welcome messages
+   - **Cause**: Previously occurred when starting new chat after going back
+   - **Solution**: Smart session detection and proper session clearing
+
+2. **Review Dialog Not Showing**
+   - **Expected**: Review dialog only appears after meaningful chat interactions
+   - **Not Showing**: If user only sees welcome message without interaction
+   - **Solution**: This is intentional behavior to avoid unnecessary review prompts
+
+3. **Chat Session Issues**
+   - **Session Persistence**: Chat state is maintained when navigating back
+   - **Confirmation Dialogs**: Prevent accidental loss of conversations
+   - **Smart Detection**: System distinguishes between welcome messages and real interactions
+
+4. **API Integration**
+   - **Review Endpoint**: Ensure your backend supports `POST /Client/ClientChatSession/{id}/review`
+   - **Token Authentication**: Verify `getToken` function returns valid JWT
+   - **Error Handling**: Review submission failures are handled gracefully
 
 ## Support
 

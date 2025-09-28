@@ -181,6 +181,15 @@
     [showHelpScreenData]="showHelpScreenData"
     [showChat]="showChat"
   ></app-footer>
+
+  <!-- Review Dialog -->
+  <app-review-dialog
+    [isOpen]="showReviewDialog"
+    [isSubmitting]="isSubmittingReview"
+    (close)="handleReviewSkip()"
+    (submitReview)="handleReviewSubmit($event)"
+    (skip)="handleReviewSkip()"
+  ></app-review-dialog>
   }
 </div>
 }

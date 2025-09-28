@@ -6,6 +6,7 @@ import { HelpScreenDataComponent } from '../../../help-screen-data/help-screen-d
 import { ChatComponent } from '../../../chat/chat.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ReviewDialogComponent } from '../../../shared/components/review-dialog/review-dialog.component';
 import { IntroSectionComponent } from '../intro-section/intro-section.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ChatHeaderComponent, HeaderComponent } from '../../../shared/components';
@@ -60,6 +61,7 @@ interface Message {
     ChatComponent,
     LoadingComponent,
     ConfirmationDialogComponent,
+    ReviewDialogComponent,
     IntroSectionComponent,
     FooterComponent,
   ]
@@ -84,6 +86,8 @@ export class HelpPopupComponent {
   @Input() selectedNestedOption: Option | null = null;
   @Input() showEndChatConfirmation: boolean = false;
   @Input() showStartNewChatConfirmation: boolean = false;
+  @Input() showReviewDialog: boolean = false;
+  @Input() isSubmittingReview: boolean = false;
 
   @Output() closePopup = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
@@ -93,6 +97,8 @@ export class HelpPopupComponent {
   @Output() cancelEndChat = new EventEmitter<void>();
   @Output() confirmStartNewChat = new EventEmitter<void>();
   @Output() cancelStartNewChat = new EventEmitter<void>();
+  @Output() reviewSubmit = new EventEmitter<{ rating: number; comment: string }>();
+  @Output() reviewSkip = new EventEmitter<void>();
   @Output() sendMessageEvent = new EventEmitter<string>();
   @Output() startNewChat = new EventEmitter<Option>();
   @Output() showHelpScreenDataEvent = new EventEmitter<void>();
@@ -129,6 +135,14 @@ export class HelpPopupComponent {
 
   handleCancelStartNewChat() {
     this.cancelStartNewChat.emit();
+  }
+
+  handleReviewSubmit(reviewData: { rating: number; comment: string }) {
+    this.reviewSubmit.emit(reviewData);
+  }
+
+  handleReviewSkip() {
+    this.reviewSkip.emit();
   }
 
   handleSendMessage(message: string) {

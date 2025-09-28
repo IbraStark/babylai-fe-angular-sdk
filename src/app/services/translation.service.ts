@@ -19,6 +19,13 @@ export type TranslationKey =
   | 'LeavingDialogBody'
   | 'StartNewChatDialogTitle'
   | 'StartNewChatDialogBody'
+  | 'ReviewDialogTitle'
+  | 'ReviewDialogDescription'
+  | 'ReviewDialogRatingLabel'
+  | 'ReviewDialogCommentLabel'
+  | 'ReviewDialogCommentPlaceholder'
+  | 'ReviewDialogSubmitButton'
+  | 'ReviewDialogSkipButton'
   | 'Confirm'
   | 'Cancel'
   | 'title'
@@ -44,6 +51,13 @@ export class TranslationService {
       LeavingDialogBody: "Don't worry, you can come back anytime. We're always here if you need help or have questions.",
       StartNewChatDialogTitle: 'End and Start New Chat',
       StartNewChatDialogBody: 'Are you sure you want to end the current conversation and start a new one?',
+      ReviewDialogTitle: 'Add your Review',
+      ReviewDialogDescription: 'We appreciate your feedback! Please take a moment to rate your experience and share your thoughts in the comment section below. Your review helps us improve our services and assists other users in making informed decisions. Thank you!',
+      ReviewDialogRatingLabel: 'Rating:',
+      ReviewDialogCommentLabel: 'Comment:',
+      ReviewDialogCommentPlaceholder: 'Write your comment here...',
+      ReviewDialogSubmitButton: 'Submit Review',
+      ReviewDialogSkipButton: 'Skip',
       Confirm: 'Confirm',
       Cancel: 'Cancel',
       title: 'Help Center'
@@ -64,6 +78,13 @@ export class TranslationService {
       LeavingDialogBody: 'لا تقلق، يمكنك العودة في أي وقت. نحن دائماً هنا إذا كنت بحاجة إلى مساعدة أو لديك أسئلة.',
       StartNewChatDialogTitle: 'إنهاء وبدء دردشة جديدة',
       StartNewChatDialogBody: 'هل أنت متأكد من أنك تريد إنهاء المحادثة الحالية وبدء محادثة جديدة؟',
+      ReviewDialogTitle: 'أضف تقييمك',
+      ReviewDialogDescription: 'نقدر ملاحظاتك! يرجى قضاء لحظة لتقييم تجربتك ومشاركة أفكارك في قسم التعليقات أدناه. تقييمك يساعدنا في تحسين خدماتنا ويساعد المستخدمين الآخرين في اتخاذ قرارات مدروسة. شكراً لك!',
+      ReviewDialogRatingLabel: 'التقييم:',
+      ReviewDialogCommentLabel: 'التعليق:',
+      ReviewDialogCommentPlaceholder: 'اكتب تعليقك هنا...',
+      ReviewDialogSubmitButton: 'إرسال التقييم',
+      ReviewDialogSkipButton: 'تخطي',
       Confirm: 'تأكيد',
       Cancel: 'إلغاء',
       title: 'مركز المساعدة'

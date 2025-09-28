@@ -19,15 +19,15 @@
   &--user {
     align-self: flex-start;
     background-color: primary("default");
-    color: black-white("50");
+    color: primary("foreground");
     direction: rtl;
   }
 
   &--assistant,
   &--agent {
     align-self: flex-end;
-    background-color: black-white("50");
-    color: black-white("950");
+    background-color: var(--card);
+    color: var(--card-foreground);
     direction: rtl;
   }
 }
@@ -53,7 +53,7 @@
     }
 
     &.prose-invert {
-      color: black-white("50");
+      color: var(--card-foreground);
     }
   }
 }

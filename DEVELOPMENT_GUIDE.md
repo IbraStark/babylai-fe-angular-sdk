@@ -19,7 +19,9 @@ src/
 │   │       ├── card/              # Card component system
 │   │       ├── header/            # Header components
 │   │       ├── loading/           # Loading indicators
-│   │       └── markdown-renderer/ # Markdown content renderer
+│   │       ├── markdown-renderer/ # Markdown content renderer
+│   │       ├── confirmation-dialog/ # Confirmation dialogs
+│   │       └── review-dialog/     # User feedback collection
 │   ├── services/             # Core services
 │   │   ├── api.service.ts         # HTTP API communication
 │   │   ├── ably.service.ts        # Real-time messaging
@@ -131,6 +133,8 @@ The `HelpCenterWidgetComponent` is the primary entry point:
 - **Responsive Design**: Mobile-first approach
 - **Accessibility**: ARIA labels and keyboard navigation
 - **Customizable**: Extensive theming and configuration options
+- **User Feedback**: Review dialog for collecting user ratings and comments
+- **Smart Session Management**: Intelligent chat session handling with confirmation dialogs
 
 ## Styling System
 
@@ -193,6 +197,13 @@ apiService.initialize(config);
 - Message type handling (user/assistant/agent)
 - Connection state management
 
+### User Feedback System
+- **Review Dialog**: Collects user ratings (1-5 stars) and comments (10-500 characters)
+- **Smart Display Logic**: Only shows review dialog after meaningful chat interactions
+- **API Integration**: Submits reviews to `/Client/ClientChatSession/{id}/review` endpoint
+- **Validation**: Client-side validation with real-time feedback
+- **Multi-language**: Fully translated review dialog interface
+
 ## Internationalization (i18n)
 
 ### Language Support
@@ -213,6 +224,14 @@ translationService.translate('ChatNow') // Returns localized string
 2. Add translations to `TranslationService`
 3. Update RTL logic in components
 
+### Translation Keys
+The system includes comprehensive translation keys for all UI elements:
+- **Chat Interface**: Messages, buttons, placeholders
+- **Confirmation Dialogs**: End chat, start new chat confirmations
+- **Review Dialog**: Rating labels, validation messages, buttons
+- **Help Screen**: Navigation, content labels
+- **General UI**: Loading states, error messages, accessibility labels
+
 ## State Management
 
 ### Component State
@@ -224,6 +243,12 @@ translationService.translate('ChatNow') // Returns localized string
 - Singleton services for global state
 - BehaviorSubject for reactive updates
 - Memory leak prevention with proper unsubscription
+
+### Chat Session Management
+- **Smart Session Detection**: Distinguishes between welcome messages and meaningful interactions
+- **Session Persistence**: Maintains chat state when navigating back
+- **Confirmation Dialogs**: Prevents accidental loss of active conversations
+- **Duplicate Prevention**: Intelligent message handling to prevent duplicate welcome messages
 
 ## Error Handling
 
@@ -343,6 +368,12 @@ export class AppComponent {
    - Clear node_modules and reinstall
    - Check TypeScript version compatibility
    - Verify Angular CLI version
+
+5. **Chat Session Issues**
+   - **Duplicate Messages**: Fixed with intelligent session detection
+   - **Session Persistence**: Chat state maintained when navigating back
+   - **Review Dialog**: Only appears after meaningful interactions
+   - **Confirmation Dialogs**: Prevent accidental conversation loss
 
 ### Debug Mode
 Enable debug logging by setting:

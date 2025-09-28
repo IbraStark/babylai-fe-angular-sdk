@@ -9,16 +9,16 @@
   // Default variant
   &--default {
     border-radius: $radius-lg;
-    border: 1px solid black-white('200');
-    background-color: black-white('50');
-    color: black-white('600');
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--card-foreground);
     box-shadow: shadow('minimal');
   }
 
   // Rounded variant
   &--rounded {
     border-radius: $radius-3xl;
-    background-color: black-white('50');
+    background-color: var(--card);
     padding: spacing('1') spacing('2');
     display: block;
   }
@@ -26,9 +26,9 @@
   // Shadowed variant
   &--shadowed {
     border-radius: $radius-lg;
-    border: 1px solid black-white('200');
-    background-color: black-white('50');
-    color: black-white('600');
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--card-foreground);
     box-shadow: shadow('minimal');
   }
 
@@ -52,7 +52,7 @@
   // Card description
   &__description {
     font-size: font-size('sm');
-    color: black-white('400');
+    color: var(--muted-foreground);
     width: 100%;
   }
 

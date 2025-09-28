@@ -15,3 +15,4 @@ export * from './card';
 export * from './confirmation-dialog';
 export * from './loading';
 export * from './markdown-renderer';
+export * from './review-dialog';

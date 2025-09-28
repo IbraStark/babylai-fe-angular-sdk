@@ -118,6 +118,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
   showEndChatConfirmation = false;
   showStartNewChatConfirmation = false;
+  showReviewDialog = false;
+  isSubmittingReview = false;
   pendingNewChatOption: Option | null = null;
 
   constructor(
@@ -358,8 +360,13 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
       return;
     }
 
+    // If there's a sessionId but only welcome messages, clear the session and start fresh
+    if (this.sessionId && !this.hasActiveChatSession()) {
+      await this.clearCurrentChat();
+    }
+
     // If there are only welcome messages but no session, clear them and start fresh
-    if (this.messages.length > 0 && !this.hasActiveChatSession()) {
+    if (this.messages.length > 0 && !this.sessionId) {
       this.messages = [];
     }
 
@@ -368,6 +375,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
     try {
       // Create chat session (includes Ably connection setup)
+      await this.createChatSession(option);
+      
       // Add greeting message
       this.messages.push({
         id: Date.now(),
@@ -433,6 +442,61 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
   async confirmEndChat() {
     this.showEndChatConfirmation = false;
+    
+    // Only show review dialog if there was an active chat session with meaningful interaction
+    if (this.sessionId && this.hasActiveChatSession()) {
+      this.showReviewDialog = true;
+    } else {
+      // No meaningful interaction, just end the chat directly
+      await this.endChatSession();
+    }
+  }
+
+  async handleReviewSubmit(reviewData: { rating: number; comment: string }) {
+    try {
+      console.log('Review submitted:', reviewData);
+      this.isSubmittingReview = true;
+      
+      // Store session ID before closing chat
+      const currentSessionId = this.sessionId;
+      
+      // Close chat session first
+      await this.endChatSession();
+      
+      // Then submit review to API endpoint
+      if (currentSessionId) {
+        const reviewPayload = {
+          rating: reviewData.rating,
+          comment: reviewData.comment
+        };
+        
+        await this.apiService.apiRequest(
+          `Client/ClientChatSession/${currentSessionId}/review`,
+          'POST',
+          reviewPayload
+        );
+        
+        console.log('Review submitted successfully');
+      }
+      
+      // Close review dialog
+      this.showReviewDialog = false;
+      this.isSubmittingReview = false;
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      this.isSubmittingReview = false;
+      // Still close the dialog even if review submission fails
+      this.showReviewDialog = false;
+    }
+  }
+
+  async handleReviewSkip() {
+    // Close review dialog and end chat
+    this.showReviewDialog = false;
+    await this.endChatSession();
+  }
+
+  private async endChatSession() {
     if (this.sessionId) {
       await this.closeChatSession(this.sessionId);
       this.sessionId = null;
@@ -564,6 +628,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     if (this.showChat) {
       this.showChat = false;
       this.showHelpScreenData = true;
+      // Don't clear sessionId or messages when going back - user might want to return to chat
     } else if (this.selectedNestedOption) {
       this.selectedNestedOption = null;
     } else if (this.selectedOption) {

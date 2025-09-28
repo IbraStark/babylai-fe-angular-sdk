@@ -31,6 +31,8 @@
     [selectedNestedOption]="selectedNestedOption"
     [showEndChatConfirmation]="showEndChatConfirmation"
     [showStartNewChatConfirmation]="showStartNewChatConfirmation"
+    [showReviewDialog]="showReviewDialog"
+    [isSubmittingReview]="isSubmittingReview"
     (closePopup)="handleClosePopup()"
     (back)="handleBack()"
     (showChatEvent)="handleShowChat()"
@@ -39,10 +41,12 @@
     (cancelEndChat)="cancelEndChat()"
     (confirmStartNewChat)="confirmStartNewChat()"
     (cancelStartNewChat)="cancelStartNewChat()"
+    (reviewSubmit)="handleReviewSubmit($event)"
+    (reviewSkip)="handleReviewSkip()"
     (sendMessageEvent)="sendMessage($event)"
     (startNewChat)="handleStartNewChat($event)"
     (showHelpScreenDataEvent)="handleShowHelpScreenData()"
     (hideHelpScreenData)="handleHideHelpScreenData()"
     (navigateToUrl)="navigateToUrl($event)"
-  ></app-help-popup>
+  >  </app-help-popup>
 </div>

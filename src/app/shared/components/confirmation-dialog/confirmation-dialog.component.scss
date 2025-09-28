@@ -3,7 +3,7 @@
 .dialog {
   position: absolute;
   inset: 0;
-  background-color: rgba(black-white('950'), 0.5);
+  background-color: rgba(var(--card-foreground), 0.5);
   z-index: z('50');
   display: flex;
   align-items: center;
@@ -11,12 +11,13 @@
   border-radius: $radius-3xl;
 
   &__content {
-    background-color: color('pure-white');
+    background-color: var(--card);
     border-radius: $radius-3xl;
     padding: spacing('6');
     max-width: size('384');
     width: 100%;
     margin: 0 spacing('4');
+    box-shadow: 0 0 3px 0 var(--babylai-primary-color-200);
   }
 
   &__title {
@@ -27,7 +28,7 @@
   }
 
   &__body {
-    color: black-white('400');
+    color: var(--card-foreground);
     margin-bottom: spacing('6');
     text-align: center;
   }
@@ -52,12 +53,13 @@
   // Button modifiers
   &__cancel-button {
     background-color: transparent !important;
-    color: primary('default') !important;
-    border: 1px solid primary('default') !important;
+    color: var(--card-foreground) !important;
+    border: 1px solid var(--card-foreground) !important;
     width: 100% !important;
 
     &:hover {
-      background-color: rgba(primary('default'), 0.1) !important;
+      background-color: rgba(var(--card-foreground), 0.1) !important;
+      border-color: var(--card-foreground) !important;
     }
   }
 }
