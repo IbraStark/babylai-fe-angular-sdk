@@ -117,6 +117,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
   selectedNestedOption: Option | null = null;
 
   showEndChatConfirmation = false;
+  showStartNewChatConfirmation = false;
+  pendingNewChatOption: Option | null = null;
 
   constructor(
     private apiService: ApiService,
@@ -326,7 +328,41 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  private hasActiveChatSession(): boolean {
+    // Check if there are any user messages or agent/assistant responses (not just welcome messages)
+    return this.messages.some(message => 
+      message.senderType === 1 || // User message
+      (message.senderType === 2 || message.senderType === 3) && 
+      !this.isWelcomeMessage(message.messageContent) // Assistant/agent message that's not a welcome
+    );
+  }
+
+  private isWelcomeMessage(content: string): boolean {
+    const welcomeMessages = [
+      'Hello! How can I assist you today?',
+      'مرحباً! كيف يمكنني مساعدتك اليوم؟'
+    ];
+    // Check if it's a standard welcome message or if it contains common greeting patterns
+    return welcomeMessages.some(welcome => content.includes(welcome)) ||
+           content.includes('Hello!') ||
+           content.includes('مرحباً!') ||
+           content.includes('How can I assist') ||
+           content.includes('كيف يمكنني مساعدتك');
+  }
+
   async handleStartNewChat(option: Option) {
+    // Check if there's already an active chat session (has sessionId and meaningful messages)
+    if (this.sessionId && this.hasActiveChatSession()) {
+      this.pendingNewChatOption = option;
+      this.showStartNewChatConfirmation = true;
+      return;
+    }
+
+    // If there are only welcome messages but no session, clear them and start fresh
+    if (this.messages.length > 0 && !this.hasActiveChatSession()) {
+      this.messages = [];
+    }
+
     this.selectedOption = option;
     this.chatIsLoading = true;
 
@@ -419,6 +455,84 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     this.showEndChatConfirmation = false;
   }
 
+  async confirmStartNewChat() {
+    this.showStartNewChatConfirmation = false;
+    if (this.pendingNewChatOption) {
+      // Clear current chat session
+      await this.clearCurrentChat();
+      // Start new chat with the pending option
+      await this.startNewChatWithOption(this.pendingNewChatOption);
+      this.pendingNewChatOption = null;
+    }
+  }
+
+  cancelStartNewChat() {
+    this.showStartNewChatConfirmation = false;
+    this.pendingNewChatOption = null;
+  }
+
+  private async clearCurrentChat() {
+    if (this.sessionId) {
+      await this.closeChatSession(this.sessionId);
+      this.sessionId = null;
+    }
+
+    // Stop Ably connection
+    await ClientAblyService.stopConnection();
+    this.isAblyConnected = false;
+
+    // Clear messages and reset state
+    this.messages = [];
+    this.needsAgent = false;
+    this.assistantStatus = 'idle';
+    this.selectedOption = null;
+    this.selectedNestedOption = null;
+  }
+
+  private async startNewChatWithOption(option: Option) {
+    this.selectedOption = option;
+    this.chatIsLoading = true;
+
+    try {
+      // Create chat session (includes Ably connection setup)
+      await this.createChatSession(option);
+      
+      // Add greeting message
+      this.messages.push({
+        id: Date.now(),
+        sender: 'assistant',
+        senderType: 3,
+        messageContent:
+          option.assistant?.greeting ||
+          (this.currentLang === 'en'
+            ? 'Hello! How can I assist you today?'
+            : 'مرحباً! كيف يمكنني مساعدتك اليوم؟'),
+        sentAt: new Date(),
+        isSeen: true,
+      });
+
+      // Update UI state
+      this.showChat = true;
+      this.isChatClosed = false;
+      this.showHelpScreenData = false;
+      this.chatIsLoading = false;
+    } catch (error) {
+      console.error('Error starting new chat:', error);
+      this.chatIsLoading = false;
+
+      // Show error message to user
+      this.messages.push({
+        id: Date.now(),
+        sender: 'assistant',
+        senderType: 3,
+        messageContent:
+          'Failed to start chat. Please try again.\n فشل في بدء المحادثة. يرجى المحاولة مرة أخرى.',
+        sentAt: new Date(),
+        isSeen: true,
+      });
+    }
+  }
+
   async closeChatSession(chatSessionId: string) {
     try {
       const response = await this.apiService.apiRequest(
@@ -438,6 +552,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     this.isPopupOpen = false;
     this.selectedOption = null;
     this.selectedNestedOption = null;
+    // Clear messages when closing popup to ensure fresh start next time
+    this.messages = [];
   }
 
   handleCloseArrowAnimation() {

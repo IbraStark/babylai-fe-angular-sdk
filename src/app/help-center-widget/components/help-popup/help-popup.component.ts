@@ -83,6 +83,7 @@ export class HelpPopupComponent {
   @Input() selectedOption: Option | null = null;
   @Input() selectedNestedOption: Option | null = null;
   @Input() showEndChatConfirmation: boolean = false;
+  @Input() showStartNewChatConfirmation: boolean = false;
 
   @Output() closePopup = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
@@ -90,6 +91,8 @@ export class HelpPopupComponent {
   @Output() endChat = new EventEmitter<void>();
   @Output() confirmEndChat = new EventEmitter<void>();
   @Output() cancelEndChat = new EventEmitter<void>();
+  @Output() confirmStartNewChat = new EventEmitter<void>();
+  @Output() cancelStartNewChat = new EventEmitter<void>();
   @Output() sendMessageEvent = new EventEmitter<string>();
   @Output() startNewChat = new EventEmitter<Option>();
   @Output() showHelpScreenDataEvent = new EventEmitter<void>();
@@ -118,6 +121,14 @@ export class HelpPopupComponent {
 
   handleCancelEndChat() {
     this.cancelEndChat.emit();
+  }
+
+  handleConfirmStartNewChat() {
+    this.confirmStartNewChat.emit();
+  }
+
+  handleCancelStartNewChat() {
+    this.cancelStartNewChat.emit();
   }
 
   handleSendMessage(message: string) {

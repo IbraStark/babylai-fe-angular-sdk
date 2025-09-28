@@ -1,30 +1,58 @@
 @if (isPopupOpen) {
-<div class="help-popup" [ngClass]="{
+<div
+  class="help-popup"
+  [ngClass]="{
     'is-open': isPopupOpen,
     'is-closed': !isPopupOpen,
     'babylai-bg-linear-to-b': isPopupOpen && !showHelpScreenData && !showChat
-  }">
+  }"
+>
   @if (showEndChatConfirmation) {
-  <app-confirmation-dialog [title]="'LeavingDialogTitle' | translate" [body]="'LeavingDialogBody' | translate"
-    [confirmText]="'Confirm' | translate" [cancelText]="'Cancel' | translate" (onConfirm)="handleConfirmEndChat()"
-    (onCancel)="handleCancelEndChat()"></app-confirmation-dialog>
+  <app-confirmation-dialog
+    [title]="'LeavingDialogTitle' | translate"
+    [body]="'LeavingDialogBody' | translate"
+    [confirmText]="'Confirm' | translate"
+    [cancelText]="'Cancel' | translate"
+    (onConfirm)="handleConfirmEndChat()"
+    (onCancel)="handleCancelEndChat()"
+  ></app-confirmation-dialog>
+  }
+
+  @if (showStartNewChatConfirmation) {
+  <app-confirmation-dialog
+    [title]="'StartNewChatDialogTitle' | translate"
+    [body]="'StartNewChatDialogBody' | translate"
+    [confirmText]="'Confirm' | translate"
+    [cancelText]="'Cancel' | translate"
+    (onConfirm)="handleConfirmStartNewChat()"
+    (onCancel)="handleCancelStartNewChat()"
+  ></app-confirmation-dialog>
   }
 
   <!-- Loading State -->
   @if (status === 'loading') {
   <div class="loading-state">
     @if (!showHelpScreenData) {
-    <app-header [showBackButton]="!!selectedOption || !!selectedNestedOption" [showLogo]="true" (onBack)="handleBack()"
-      (onClose)="handleClosePopup()" [language]="currentLang"></app-header>
+    <app-header
+      [showBackButton]="!!selectedOption || !!selectedNestedOption"
+      [showLogo]="true"
+      (onBack)="handleBack()"
+      (onClose)="handleClosePopup()"
+      [language]="currentLang"
+    ></app-header>
+    } @if (showHelpScreenData) {
+    <app-header
+      [showCloseButton]="!isIntroScreenEnabled"
+      [showLogo]="true"
+      (onClose)="
+        isIntroScreenEnabled ? handleHideHelpScreenData() : handleClosePopup()
+      "
+      [language]="currentLang"
+    ></app-header>
     }
-    @if (showHelpScreenData) {
-    <app-header [showCloseButton]="!isIntroScreenEnabled" [showLogo]="true" (onClose)="
-          isIntroScreenEnabled
-            ? handleHideHelpScreenData()
-            : handleClosePopup()
-        " [language]="currentLang"></app-header>
-    }
-    <app-loading [variant]="!isIntroScreenEnabled ? 'primary' : 'default'"></app-loading>
+    <app-loading
+      [variant]="!isIntroScreenEnabled ? 'primary' : 'default'"
+    ></app-loading>
   </div>
   }
 
@@ -38,77 +66,121 @@
   <!-- Content -->
   @if (status === 'succeeded') {
   <!-- Headers -->
-  @if (isIntroScreenEnabled) {
-  @if (!showHelpScreenData && !showChat) {
-  <app-header [showBackButton]="!!selectedOption || !!selectedNestedOption" [showLogo]="true" (onBack)="handleBack()"
-    (onClose)="handleClosePopup()" [language]="currentLang"></app-header>
-  }
-  }
-
-  @if (showHelpScreenData && !showChat) {
-  <app-header [showCloseButton]="!isIntroScreenEnabled" [showBackButton]="isIntroScreenEnabled && showHelpScreenData"
-    [showLogo]="false" (onClose)="
-          isIntroScreenEnabled
-            ? handleHideHelpScreenData()
-            : handleClosePopup()
-        " (onBack)="isIntroScreenEnabled ? handleBack() : handleClosePopup()" [language]="currentLang"></app-header>
+  @if (isIntroScreenEnabled) { @if (!showHelpScreenData && !showChat) {
+  <app-header
+    [showBackButton]="!!selectedOption || !!selectedNestedOption"
+    [showLogo]="true"
+    (onBack)="handleBack()"
+    (onClose)="handleClosePopup()"
+    [language]="currentLang"
+  ></app-header>
+  } } @if (showHelpScreenData && !showChat) {
+  <app-header
+    [showCloseButton]="!isIntroScreenEnabled"
+    [showBackButton]="isIntroScreenEnabled && showHelpScreenData"
+    [showLogo]="false"
+    (onClose)="
+      isIntroScreenEnabled ? handleHideHelpScreenData() : handleClosePopup()
+    "
+    (onBack)="isIntroScreenEnabled ? handleBack() : handleClosePopup()"
+    [language]="currentLang"
+  ></app-header>
 
   @if (showHelpScreenData && sessionId) {
-  <app-button variant="icon-bg" (click)="handleShowChat()" class="chat-button" className="button--icon">
-    <svg class="icon-full" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <app-button
+    variant="icon-bg"
+    (click)="handleShowChat()"
+    class="chat-button"
+    className="button--icon"
+  >
+    <svg
+      class="icon-full"
+      viewBox="0 0 25 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M17.5 3.83801C15.9806 2.95874 14.2555 2.49712 12.5 2.50001C6.977 2.50001 2.5 6.97701 2.5 12.5C2.5 14.1 2.876 15.612 3.543 16.953C3.721 17.309 3.78 17.716 3.677 18.101L3.082 20.327C3.02307 20.5473 3.02312 20.7792 3.08216 20.9995C3.14119 21.2198 3.25712 21.4206 3.41831 21.5819C3.57951 21.7432 3.7803 21.8593 4.00053 21.9184C4.22075 21.9776 4.45267 21.9778 4.673 21.919L6.899 21.323C7.28538 21.2254 7.69414 21.2727 8.048 21.456C9.43095 22.1446 10.9551 22.502 12.5 22.5C18.023 22.5 22.5 18.023 22.5 12.5C22.5 10.679 22.013 8.97001 21.162 7.50001"
-        stroke="white" stroke-width="2" stroke-linecap="round" />
-      <path d="M8.5 12.5H8.509M12.491 12.5H12.5M16.491 12.5H16.5" stroke="white" stroke-width="2.66667"
-        stroke-linecap="round" stroke-linejoin="round" />
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M8.5 12.5H8.509M12.491 12.5H12.5M16.491 12.5H16.5"
+        stroke="white"
+        stroke-width="2.66667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   </app-button>
-  }
-  }
+  } } @if (showChat) {
+  <app-chat-header
+    [showBackButton]="showChat"
+    [showLogo]="true"
+    (onClose)="handleEndChat()"
+    (onBack)="handleBack()"
+    [language]="currentLang"
+  ></app-chat-header>
 
-  @if (showChat) {
-  <app-chat-header [showBackButton]="showChat" [showLogo]="true" (onClose)="handleEndChat()" (onBack)="handleBack()"
-    [language]="currentLang"></app-chat-header>
-
-  <app-chat class="chat-container" [messages]="messages" [needsAgent]="needsAgent" [assistantStatus]="assistantStatus"
-    [isAblyConnected]="isAblyConnected" [isChatClosed]="isChatClosed" (sendMessageEvent)="handleSendMessage($event)"
-    [currentLang]="currentLang" [loading]="chatIsLoading"></app-chat>
+  <app-chat
+    class="chat-container"
+    [messages]="messages"
+    [needsAgent]="needsAgent"
+    [assistantStatus]="assistantStatus"
+    [isAblyConnected]="isAblyConnected"
+    [isChatClosed]="isChatClosed"
+    (sendMessageEvent)="handleSendMessage($event)"
+    [currentLang]="currentLang"
+    [loading]="chatIsLoading"
+  ></app-chat>
   }
 
   <!-- Main Content -->
   @if (!showChat) {
   <div class="main-content">
-    @if (isIntroScreenEnabled) {
-    @if (!showHelpScreenData) {
-    <app-intro-section [currentLang]="currentLang" (showHelpScreenData)="handleShowHelpScreenData()"
-      (navigateToUrl)="handleNavigateToUrl($event)"></app-intro-section>
-    }
-    }
-
-    @if (showHelpScreenData) {
-    <svg class="stars" viewBox="0 0 244 196" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    @if (isIntroScreenEnabled) { @if (!showHelpScreenData) {
+    <app-intro-section
+      [currentLang]="currentLang"
+      (showHelpScreenData)="handleShowHelpScreenData()"
+      (navigateToUrl)="handleNavigateToUrl($event)"
+    ></app-intro-section>
+    } } @if (showHelpScreenData) {
+    <svg
+      class="stars"
+      viewBox="0 0 244 196"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g opacity="0.15">
         <path
           d="M61.0903 66.4434C61.101 66.4056 61.1063 66.3867 61.1088 66.3779C62.7734 60.5407 71.046 60.5407 72.7106 66.3779C72.7131 66.3867 72.7184 66.4056 72.7291 66.4434C72.7572 66.5431 72.7712 66.5929 72.7845 66.6397C80.5193 93.9529 101.867 115.3 129.18 123.035C129.227 123.048 129.276 123.062 129.376 123.09C129.414 123.101 129.433 123.106 129.441 123.109C135.279 124.773 135.279 133.046 129.441 134.711C129.433 134.713 129.414 134.718 129.376 134.729C129.276 134.757 129.227 134.771 129.18 134.784C101.867 142.519 80.5193 163.867 72.7845 191.18C72.7712 191.227 72.7572 191.276 72.7291 191.376C72.7184 191.414 72.7131 191.433 72.7106 191.441C71.046 197.279 62.7734 197.279 61.1088 191.441C61.1063 191.433 61.101 191.414 61.0903 191.376C61.0622 191.276 61.0482 191.227 61.035 191.18C53.3002 163.867 31.9529 142.519 4.63971 134.784C4.59292 134.771 4.54309 134.757 4.44342 134.729C4.40559 134.718 4.38668 134.713 4.37792 134.711C-1.45931 133.046 -1.45931 124.773 4.37792 123.109C4.38668 123.106 4.40559 123.101 4.44342 123.09C4.54309 123.062 4.59292 123.048 4.63971 123.035C31.9529 115.3 53.3002 93.9529 61.035 66.6397C61.0482 66.5929 61.0622 66.5431 61.0903 66.4434Z"
-          fill="currentColor" />
+          fill="currentColor"
+        />
         <path
           d="M188.17 50.6848C188.179 50.6534 188.183 50.6377 188.185 50.6305C189.525 45.7898 196.183 45.7898 197.523 50.6305C197.525 50.6377 197.529 50.6534 197.538 50.6848C197.561 50.7674 197.572 50.8088 197.583 50.8476C203.808 73.4975 220.99 91.2002 242.974 97.6144C243.012 97.6253 243.052 97.637 243.132 97.6603C243.162 97.6691 243.178 97.6736 243.185 97.6756C247.883 99.056 247.883 105.916 243.185 107.297C243.178 107.299 243.162 107.303 243.132 107.312C243.052 107.335 243.012 107.347 242.974 107.358C220.99 113.772 203.808 131.475 197.583 154.125C197.572 154.163 197.561 154.205 197.538 154.287C197.529 154.319 197.525 154.334 197.523 154.342C196.183 159.182 189.525 159.182 188.185 154.342C188.183 154.334 188.179 154.319 188.17 154.287C188.148 154.205 188.136 154.163 188.126 154.125C181.9 131.475 164.718 113.772 142.734 107.358C142.697 107.347 142.657 107.335 142.576 107.312C142.546 107.303 142.531 107.299 142.524 107.297C137.825 105.916 137.825 99.056 142.524 97.6756C142.531 97.6736 142.546 97.6691 142.576 97.6603C142.657 97.637 142.697 97.6253 142.734 97.6144C164.718 91.2002 181.9 73.4975 188.126 50.8476C188.136 50.8088 188.148 50.7674 188.17 50.6848Z"
-          fill="currentColor" />
+          fill="currentColor"
+        />
         <path
           d="M127.131 -17.2906C127.138 -17.3137 127.143 -17.3305 127.143 -17.3305C128.198 -20.8898 133.444 -20.8898 134.5 -17.3305C134.5 -17.3305 134.505 -17.3137 134.512 -17.2906C134.529 -17.2298 134.538 -17.1994 134.547 -17.1709C139.452 -0.516516 152.989 12.5001 170.309 17.2164C170.339 17.2245 170.371 17.2331 170.434 17.2502C170.458 17.2567 170.476 17.2615 170.476 17.2615C174.177 18.2765 174.177 23.3208 170.476 24.3357C170.476 24.3357 170.458 24.3405 170.434 24.347C170.371 24.3642 170.339 24.3727 170.309 24.3808C152.989 29.0971 139.452 42.1138 134.547 58.7681C134.538 58.7967 134.529 58.8271 134.512 58.8878C134.505 58.9109 134.5 58.9278 134.5 58.9278C133.444 62.4871 128.198 62.4871 127.143 58.9278C127.143 58.9278 127.138 58.9109 127.131 58.8878C127.113 58.8271 127.104 58.7967 127.096 58.7681C122.191 42.1138 108.653 29.0971 91.3329 24.3808C91.3032 24.3727 91.2716 24.3642 91.2084 24.347C91.1844 24.3405 91.1669 24.3357 91.1669 24.3357C87.4652 23.3208 87.4652 18.2765 91.1669 17.2615C91.1669 17.2615 91.1844 17.2567 91.2084 17.2502C91.2716 17.2331 91.3032 17.2245 91.3329 17.2164C108.653 12.5001 122.191 -0.516516 127.096 -17.1709C127.104 -17.1994 127.113 -17.2298 127.131 -17.2906Z"
-          fill="currentColor" />
+          fill="currentColor"
+        />
       </g>
     </svg>
 
-    <app-help-screen-data [helpScreenData]="helpScreenData"
-      (handleStartNewChat)="handleStartNewChat($event)"></app-help-screen-data>
+    <app-help-screen-data
+      [helpScreenData]="helpScreenData"
+      (handleStartNewChat)="handleStartNewChat($event)"
+    ></app-help-screen-data>
     }
-
   </div>
   }
 
   <!-- Footer -->
-  <app-footer [showHelpScreenData]="showHelpScreenData" [showChat]="showChat"></app-footer>
+  <app-footer
+    [showHelpScreenData]="showHelpScreenData"
+    [showChat]="showChat"
+  ></app-footer>
   }
 </div>
 }

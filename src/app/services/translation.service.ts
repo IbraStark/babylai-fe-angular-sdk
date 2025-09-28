@@ -17,6 +17,8 @@ export type TranslationKey =
   | 'EndChat'
   | 'LeavingDialogTitle'
   | 'LeavingDialogBody'
+  | 'StartNewChatDialogTitle'
+  | 'StartNewChatDialogBody'
   | 'Confirm'
   | 'Cancel'
   | 'title'
@@ -40,6 +42,8 @@ export class TranslationService {
       EndChat: 'End Chat',
       LeavingDialogTitle: 'Leaving so soon? 👋',
       LeavingDialogBody: "Don't worry, you can come back anytime. We're always here if you need help or have questions.",
+      StartNewChatDialogTitle: 'End and Start New Chat',
+      StartNewChatDialogBody: 'Are you sure you want to end the current conversation and start a new one?',
       Confirm: 'Confirm',
       Cancel: 'Cancel',
       title: 'Help Center'
@@ -58,6 +62,8 @@ export class TranslationService {
       EndChat: 'إنهاء الدردشة',
       LeavingDialogTitle: 'هل تغادر بالفعل؟ 👋',
       LeavingDialogBody: 'لا تقلق، يمكنك العودة في أي وقت. نحن دائماً هنا إذا كنت بحاجة إلى مساعدة أو لديك أسئلة.',
+      StartNewChatDialogTitle: 'إنهاء وبدء دردشة جديدة',
+      StartNewChatDialogBody: 'هل أنت متأكد من أنك تريد إنهاء المحادثة الحالية وبدء محادثة جديدة؟',
       Confirm: 'تأكيد',
       Cancel: 'إلغاء',
       title: 'مركز المساعدة'
