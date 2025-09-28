@@ -1,0 +1,31 @@
+<div
+  class="chat__message-container"
+  [class.chat__message-container--user]="message.senderType === 1"
+>
+  <app-chat-avatar
+    [senderType]="message.senderType"
+    [needsAgent]="needsAgent"
+    [isHidden]="isHidden"
+  />
+  <app-card
+    variant="rounded"
+    [class]="
+      'chat__message ' +
+      (message.senderType === 1
+        ? 'chat__message--user'
+        : 'chat__message--assistant')
+    "
+  >
+    <app-card-content>
+      <div class="chat__message-content">
+        <app-markdown-renderer
+          [content]="cleanMessageContent(message.messageContent)"
+          [inline]="false"
+          [cssClass]="'prose' + (message.senderType === 1 ? ' prose-invert' : '')"
+          [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
+        >
+        </app-markdown-renderer>
+      </div>
+    </app-card-content>
+  </app-card>
+</div>

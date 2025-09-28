@@ -1,0 +1,18 @@
+<div class="chat-header">
+  <div class="chat-header__actions">
+    @if (showBackButton) {
+    <app-back-button
+      [language]="language"
+      (onBack)="onBack.emit()"
+      [size]="'small'"
+    ></app-back-button>
+    }
+
+    <app-menu-dropdown
+      [language]="language"
+      (onClose)="onClose.emit()"
+    ></app-menu-dropdown>
+  </div>
+
+  <app-logo [showLogo]="showLogo"></app-logo>
+</div>

@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": [],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/app/*": ["src/app/*"],
+      "@/shared/*": ["src/app/shared/*"],
+      "@/services/*": ["src/app/services/*"],
+      "@/components/*": ["src/app/shared/components/*"],
+      "@/pipes/*": ["src/app/pipes/*"],
+      "@/types/*": ["src/app/types/*"],
+      "@/public_api": ["public_api"]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts"
+  ]
+}

@@ -18,7 +18,18 @@
     "target": "ES2022",
     "module": "ES2022",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/app/*": ["src/app/*"],
+      "@/shared/*": ["src/app/shared/*"],
+      "@/services/*": ["src/app/services/*"],
+      "@/components/*": ["src/app/shared/components/*"],
+      "@/pipes/*": ["src/app/pipes/*"],
+      "@/types/*": ["src/app/types/*"],
+      "@/public_api": ["public_api"]
+    }
   },
   "include": [
     "src/**/*.ts",

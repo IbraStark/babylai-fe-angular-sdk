@@ -6,50 +6,39 @@ import {
   ViewChild,
   ElementRef,
   OnInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { CardComponent, CardContentComponent } from '../shared/components/card';
 import { LoadingComponent } from '../shared/components/loading/loading.component';
-import { TranslatePipe } from '../pipes/translate.pipe';
-import { MarkdownRendererComponent } from '../shared/components/markdown-renderer';
+import { ChatMessageComponent } from './components/chat-message/chat-message.component';
+import { ChatSeparatorComponent } from './components/chat-separator/chat-separator.component';
+import { ChatTypingIndicatorComponent } from './components/chat-typing-indicator/chat-typing-indicator.component';
+import { ChatInputComponent } from './components/chat-input/chat-input.component';
+import { Message } from '../types';
 
-// Conditionally import Prism.js components
-try {
-  eval('require')('prismjs');
-  eval('require')('prismjs/components/prism-typescript');
-  eval('require')('prismjs/components/prism-javascript');
-  eval('require')('prismjs/components/prism-css');
-  eval('require')('prismjs/components/prism-json');
-} catch (e) {
-  console.warn('Prism.js not available, syntax highlighting will be disabled');
-}
-
-interface Message {
-  id: string | number;
-  sender: 'user' | 'assistant' | 'agent';
-  senderType: number;
-  messageContent: string;
-  sentAt: Date;
-  isSeen: boolean;
-}
+// Import Prism.js components
+import 'prismjs';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-json';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    CardComponent,
-    CardContentComponent,
     LoadingComponent,
-    TranslatePipe,
-    MarkdownRendererComponent,
+    ChatMessageComponent,
+    ChatSeparatorComponent,
+    ChatTypingIndicatorComponent,
+    ChatInputComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
   @Input() messages: Message[] = [];
   @Input() needsAgent: boolean = false;
   @Input() assistantStatus: string = '';
@@ -59,38 +48,30 @@ export class ChatComponent implements OnInit {
   @Input() loading: boolean = false;
   @Output() sendMessageEvent = new EventEmitter<string>();
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
-  @ViewChild('messageInput') messageInput!: ElementRef;
 
-  messageContent = '';
   firstAgentMessageIndex = -1;
 
   ngOnInit(): void {
     this.findFirstAgentMessageIndex();
   }
 
-  findFirstAgentMessageIndex(): void {
-    this.firstAgentMessageIndex = this.messages.findIndex(
-      (message) => message.senderType === 2
-    );
-  }
-
-  handleSendMessage(): void {
-    if (!this.messageContent.trim() || this.loading) return;
-    this.sendMessageEvent.emit(this.messageContent);
-    this.messageContent = '';
-    this.adjustTextareaHeight();
-  }
-
-  cleanMessageContent(content: string): string {
-    return content.replace(/```/g, '\\`\\`\\`');
-  }
-
-  adjustTextareaHeight(): void {
-    const textarea = this.messageInput?.nativeElement;
-    if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea.scrollHeight + 'px';
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['messages']) {
+      this.findFirstAgentMessageIndex();
     }
+  }
+
+  findFirstAgentMessageIndex(): void {
+    // Only set firstAgentMessageIndex if we haven't found it yet
+    if (this.firstAgentMessageIndex === -1) {
+      this.firstAgentMessageIndex = this.messages.findIndex(
+        (message) => message.senderType === 2
+      );
+    }
+  }
+
+  handleSendMessage(message: string): void {
+    this.sendMessageEvent.emit(message);
   }
 
   ngAfterViewChecked(): void {
@@ -111,4 +92,5 @@ export class ChatComponent implements OnInit {
       (message) => message.senderType === 2 || message.senderType === 3
     );
   }
+
 }

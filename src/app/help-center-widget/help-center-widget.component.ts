@@ -3,6 +3,8 @@ import {
   Input,
   OnInit,
   OnDestroy,
+  OnChanges,
+  SimpleChanges,
   ViewChild,
   ElementRef,
 } from '@angular/core';
@@ -11,20 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { ClientAblyService } from '../services/ably.service';
 import {
-  CardComponent,
-  CardContentComponent,
-} from '../shared/components/card/card.component';
-import { ButtonComponent } from '../shared/components/button';
-import { HelpScreenDataComponent } from '../help-screen-data/help-screen-data.component';
-import {
-  HeaderComponent,
-  ChatHeaderComponent,
-} from '../shared/components/header';
-import { ChatComponent } from '../chat/chat.component';
-import { LoadingComponent } from '../shared/components/loading/loading.component';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { TranslatePipe } from '../pipes/translate.pipe';
+  ArrowAnimationComponent,
+  HelpButtonComponent,
+  HelpPopupComponent,
+} from './components';
 import { TranslationService } from '../services/translation.service';
+import { ThemeService } from '../services/theme.service';
 import { Subscription } from 'rxjs';
 
 interface Option {
@@ -70,19 +64,12 @@ interface Message {
   imports: [
     CommonModule,
     FormsModule,
-    TranslatePipe,
-    CardComponent,
-    CardContentComponent,
-    ButtonComponent,
-    HelpScreenDataComponent,
-    HeaderComponent,
-    ChatHeaderComponent,
-    ChatComponent,
-    LoadingComponent,
-    ConfirmationDialogComponent,
+    ArrowAnimationComponent,
+    HelpButtonComponent,
+    HelpPopupComponent,
   ],
 })
-export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
+export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
   @Input() getToken!: () => Promise<string>;
   @Input() helpScreenId!: string;
   @Input() showArrow: boolean = true;
@@ -95,6 +82,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
     return this._currentLang;
   }
   @Input() isIntroScreenEnabled: boolean = false;
+  @Input() primaryColor: string = '#ad49e1';
+  @Input() logoUrl: string = '';
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
   private _currentLang: string = 'en';
@@ -131,14 +120,18 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit() {
-    this.showArrowAnimation = this.showArrowAnimation;
+    this.showArrowAnimation = this.showArrow;
     if (!this.isIntroScreenEnabled) {
       this.showHelpScreenData = true;
     }
+
+    // Initialize theme with current inputs
+    this.themeService.initializeTheme(this.primaryColor, this.logoUrl);
 
     // Subscribe to language changes
     this.langSubscription = this.translationService.currentLang.subscribe(
@@ -146,6 +139,18 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy {
         this.currentLang = lang;
       }
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Handle primaryColor changes
+    if (changes['primaryColor'] && !changes['primaryColor'].firstChange) {
+      this.themeService.setPrimaryColor(this.primaryColor);
+    }
+
+    // Handle logoUrl changes - only set if explicitly provided
+    if (changes['logoUrl'] && !changes['logoUrl'].firstChange) {
+      this.themeService.setLogoUrl(this.logoUrl);
+    }
   }
 
   ngOnDestroy() {

@@ -3,26 +3,23 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Language } from '../types'
 
-const defaultTranslations = {
-  ChatIntroMessage: '',
-  BabylaiTitle: '',
-  BabylaiDescription: '',
-  ChatNow: '',
-  TryBableAI: '',
-  ContactUs: '',
-  PickTopicTitle: '',
-  BabylAI: '',
-  ChatPlaceholder: '',
-  PoweredByBabylAI: '',
-  EndChat: '',
-  LeavingDialogTitle: '',
-  LeavingDialogBody: '',
-  Confirm: '',
-  Cancel: '',
-  title: ''
-} as const
-
-export type TranslationKey = keyof typeof defaultTranslations
+export type TranslationKey = 
+  | 'ChatIntroMessage'
+  | 'BabylaiTitle'
+  | 'BabylaiDescription'
+  | 'ChatNow'
+  | 'TryBableAI'
+  | 'ContactUs'
+  | 'PickTopicTitle'
+  | 'BabylAI'
+  | 'ChatPlaceholder'
+  | 'PoweredByBabylAI'
+  | 'EndChat'
+  | 'LeavingDialogTitle'
+  | 'LeavingDialogBody'
+  | 'Confirm'
+  | 'Cancel'
+  | 'title'
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +36,7 @@ export class TranslationService {
       PickTopicTitle: 'Pick a Topic to Get Started',
       BabylAI: 'BabylAI',
       ChatPlaceholder: 'Type your message...',
-      PoweredByBabylAI: 'Powered by BabylAI',
+      PoweredByBabylAI: 'Powered by BabylAI © 2025',
       EndChat: 'End Chat',
       LeavingDialogTitle: 'Leaving so soon? 👋',
       LeavingDialogBody: "Don't worry, you can come back anytime. We're always here if you need help or have questions.",
@@ -57,7 +54,7 @@ export class TranslationService {
       PickTopicTitle: 'اختر موضوع للبدء',
       BabylAI: 'BabylAI',
       ChatPlaceholder: 'اكتب رسالتك...',
-      PoweredByBabylAI: 'مدعوم من BabylAI',
+      PoweredByBabylAI: 'مدعوم من BabylAI © 2025',
       EndChat: 'إنهاء الدردشة',
       LeavingDialogTitle: 'هل تغادر بالفعل؟ 👋',
       LeavingDialogBody: 'لا تقلق، يمكنك العودة في أي وقت. نحن دائماً هنا إذا كنت بحاجة إلى مساعدة أو لديك أسئلة.',

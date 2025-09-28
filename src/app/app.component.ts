@@ -12,86 +12,14 @@ import { ApiService } from './services/api.service';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, HelpCenterWidgetComponent],
-  template: `
-    <div class="container">
-      <div class="language-switcher">
-        <button
-          [class.active]="currentLang === 'en'"
-          (click)="switchLanguage('en')"
-          class="lang-btn"
-        >
-          English
-        </button>
-        <button
-          [class.active]="currentLang === 'ar'"
-          (click)="switchLanguage('ar')"
-          class="lang-btn"
-        >
-          العربية
-        </button>
-      </div>
-
-      <app-help-center-widget
-        [getToken]="getToken"
-        [helpScreenId]="helpScreenId"
-        [showArrow]="true"
-        [messageLabel]="'Need help? Click here!'"
-        [currentLang]="currentLang"
-        [isIntroScreenEnabled]="isIntroScreenEnabled"
-      >
-      </app-help-center-widget>
-    </div>
-  `,
-  styles: [
-    `
-      .container {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-      }
-
-      .language-switcher {
-        margin-bottom: 20px;
-        display: flex;
-        gap: 10px;
-      }
-
-      .lang-btn {
-        padding: 8px 16px;
-        border: 2px solid #ad49e1;
-        border-radius: 8px;
-        background: transparent;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.2s ease;
-      }
-
-      .lang-btn:hover {
-        background: #ad49e1;
-        color: white;
-      }
-
-      .lang-btn.active {
-        background: #ad49e1;
-        color: white;
-      }
-
-      app-help-center-widget {
-        width: 100%;
-        max-width: 800px;
-        height: 600px;
-      }
-    `,
-  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'angular-help-center';
   currentLang: string = 'en';
   private langSubscription?: Subscription;
-  baseUrl = 'https://be.babylai.dev.ostk.creativeadvtech.ml';
+  baseUrl = 'https://babylai-be.dev.kvm.creativeadvtech.ml';
   config = {
     getToken: this.customTokenImplementation,
     baseUrl: this.baseUrl,
@@ -103,8 +31,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private translationService: TranslationService,
     private apiService: ApiService
   ) {
-    // Example: Set up a custom token function that uses the default implementation
-    // this.setupCustomTokenFunction()
     this.currentLang = this.languageService.getCurrentLang();
     this.apiService.initialize(this.config);
   }
@@ -112,12 +38,16 @@ export class AppComponent implements OnInit, OnDestroy {
   async customTokenImplementation(): Promise<string> {
     try {
       const response = await fetch(
-        `https://be.babylai.dev.ostk.creativeadvtech.ml/Auth/client/get-babylai-token`,
+        'https://babylai-be.dev.kvm.creativeadvtech.ml/Auth/client/get-token',
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({
+            tenantId: 'eda0a697-903f-4ffb-967e-6099c6573947',
+            apiKey: 'nS3Ke6edd1p3qjpRW76w6WnPOkWwAdw+lX5PzsAb7s8=',
+          }),
         }
       );
 
@@ -132,14 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
       throw new Error('Failed to get authentication token');
     }
   }
-
-  // private setupCustomTokenFunction() {
-  //   // Register our custom token function with the config service
-  //   this.configService.setGetTokenFn(async () => {
-  //     console.log('Using custom token implementation')
-  //     return this.customTokenImplementation()
-  //   })
-  // }
 
   ngOnInit() {
     // Subscribe to language changes
@@ -165,6 +87,8 @@ export class AppComponent implements OnInit, OnDestroy {
     return tokenResponse.token;
   };
 
-  helpScreenId = '57949b38-1a7b-4ca6-a137-6c04848dd67f';
-  isIntroScreenEnabled = false;
+  helpScreenId = '40c40c8f-e6f9-4135-9d13-9f6872ea8776';
+  isIntroScreenEnabled = true;
+  primaryColor = '#008080';
+  logoUrl = '';
 }

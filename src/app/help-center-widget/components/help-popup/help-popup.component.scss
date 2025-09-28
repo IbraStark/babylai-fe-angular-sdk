@@ -1,0 +1,100 @@
+@use "../../../../scss/variables" as *;
+
+.help-popup {
+  position: fixed;
+  bottom: spacing("20");
+  right: spacing("5");
+  width: size("384");
+  height: calc(100vh - 12rem);
+  max-height: size("800");
+  border-radius: $radius-3xl;
+  box-shadow: shadow("minimal");
+  display: flex;
+  flex-direction: column;
+  z-index: z("1000");
+  background-color: black-white("100");
+  overflow: hidden;
+
+  &.is-open {
+    width: size('384');
+  }
+
+  &.is-closed {
+    width: size("60");
+  }
+}
+
+.error-message {
+  bottom: spacing("90");
+  right: spacing("5");
+  padding: spacing("4");
+  border-radius: $radius-lg;
+  box-shadow: shadow("minimal");
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-button {
+  position: absolute;
+  bottom: spacing("5");
+  right: spacing("5");
+  padding: spacing("3") !important;
+
+  &--icon {
+    padding: spacing("1") !important;
+  }
+}
+
+.chat-container {
+  height: size("full");
+  padding: spacing("4") spacing("4") spacing("0");
+  max-height: size("85");
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: spacing("4");
+  overflow-y: auto;
+  padding: spacing("0") spacing("6");
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  width: 10rem;
+  height: 10rem;
+  color: primary('default');
+}
+
+.icon-full {
+  width: size("full");
+}
+
+.babylai-bg-linear-to-b {
+  background: var(--babylai-primary-color);
+  background: linear-gradient(
+    180deg,
+    var(--babylai-primary-color) 1%,
+    color-mix(in srgb, var(--babylai-primary-color) 1%, transparent) 100%
+  );
+}
+
+/* Dark mode via browser preference */
+@media (prefers-color-scheme: dark) {
+  .babylai-bg-linear-to-b {
+    background: var(--babylai-storm-dust-950);
+    background: linear-gradient(
+      180deg,
+      var(--babylai-storm-dust-950) 1%,
+      color-mix(in srgb, var(--babylai-storm-dust-950) 60%, transparent) 100%
+    );
+  }
+}

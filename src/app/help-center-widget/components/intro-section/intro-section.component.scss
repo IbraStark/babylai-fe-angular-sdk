@@ -1,0 +1,118 @@
+@use '../../../../scss/variables' as *;
+
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  gap: spacing('4');
+  margin-top: spacing('8');
+
+  .intro-title {
+    font-size: font-size('3.4xl');
+    font-weight: weight('bold');
+    color: black-white('50');
+    line-height: 3.5rem;
+  }
+}
+
+.cards-section {
+  display: flex;
+  flex-direction: column;
+  gap: spacing('4');
+  margin-top: spacing('8');
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+
+  app-card {
+    width: 100%;
+    display: block;
+
+    ::ng-deep {
+      .card {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .card__content {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: spacing('4');
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.babylai-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: spacing('3');
+  width: 100%;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: spacing('20');
+  min-width: spacing('20');
+  width: spacing('20');
+  height: spacing('20');
+  border-radius: $radius-full;
+  background-color: primary('default');
+  color: primary('default');
+
+  .logo {
+    width: spacing('12');
+    height: spacing('12');
+  }
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0;
+  flex: 1;
+
+  .info-title {
+    font-size: font-size('base');
+    color: black-white('400');
+    font-weight: weight('semibold');
+  }
+
+  .info-description {
+    font-size: font-size('base');
+    color: black-white('800');
+  }
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing('4');
+  width: 100%;
+
+  .action-text {
+    font-size: font-size('base');
+    color: black-white('800');
+  }
+
+  .icon {
+    width: spacing('5');
+    height: spacing('5');
+
+    &-rtl {
+      transform: rotate(180deg);
+    }
+  }
+}

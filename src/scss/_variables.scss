@@ -13,11 +13,13 @@ $radius-3xl: 1.5rem;
 $spacing: (
   "0": 0,
   "1": 0.25rem,
+  "1.5": 0.375rem,
   "2": 0.5rem,
   "3": 0.75rem,
   "4": 1rem,
   "5": 1.25rem,
   "6": 1.5rem,
+  "7": 1.75rem,
   "8": 2rem,
   "10": 2.5rem,
   "12": 3rem,
@@ -32,7 +34,7 @@ $spacing: (
 $sizes: (
   "full": 100%,
   "60": 60px,
-  "360": 360px,
+  "384": 384px,
   "684": 684px,
   "800": 800px,
   "85": 85%,
@@ -80,6 +82,7 @@ $font-sizes: (
 // Font Weights
 $font-weights: (
   "normal": 400,
+  "medium": 500,
   "semibold": 600,
   "bold": 700,
 );
@@ -96,17 +99,17 @@ $colors: (
 
 // Primary Colors
 $primary-colors: (
-  "100": #f6ecfc,
-  "200": #deb6f3,
-  "300": #d49cee,
-  "400": #c57fea,
-  "500": #ad49e1,
-  "600": #672b87,
-  "700": #451d5a,
-  "800": #220e2d,
-  "900": #110716,
-  "950": #0a0310,
-  "default": #ad49e1,
+  "100": var(--babylai-primary-color-100, #f6ecfc),
+  "200": var(--babylai-primary-color-200, #deb6f3),
+  "300": var(--babylai-primary-color-300, #d49cee),
+  "400": var(--babylai-primary-color-400, #c57fea),
+  "500": var(--babylai-primary-color-500, #ad49e1),
+  "600": var(--babylai-primary-color-600, #672b87),
+  "700": var(--babylai-primary-color-700, #451d5a),
+  "800": var(--babylai-primary-color-800, #220e2d),
+  "900": var(--babylai-primary-color-900, #110716),
+  "950": var(--babylai-primary-color-950, #0a0310),
+  "default": var(--babylai-primary-color, #ad49e1),
   "foreground": #ffffff,
 );
 

@@ -1,0 +1,41 @@
+@use '../../../../scss/variables' as *;
+
+.help-button {
+  width: spacing('14');
+  height: spacing('14');
+  border-radius: $radius-full;
+  background-color: primary('default');
+  color: primary('foreground');
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: shadow('minimal');
+  transition: transition('transform');
+  position: fixed;
+  bottom: spacing('5');
+  right: spacing('5');
+  z-index: z('1000');
+
+  &:hover {
+    background-color: primary('300');
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-logo {
+    width: spacing('6');
+    height: spacing('6');
+    color: primary('default');
+  }
+}

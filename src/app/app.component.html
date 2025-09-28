@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="language-switcher">
+    <button
+      [class.active]="currentLang === 'en'"
+      (click)="switchLanguage('en')"
+      class="lang-btn"
+    >
+      English
+    </button>
+    <button
+      [class.active]="currentLang === 'ar'"
+      (click)="switchLanguage('ar')"
+      class="lang-btn"
+    >
+      العربية
+    </button>
+  </div>
+
+  <app-help-center-widget
+    [getToken]="getToken"
+    [helpScreenId]="helpScreenId"
+    [showArrow]="true"
+    [messageLabel]="'Need help? Click here!'"
+    [currentLang]="currentLang"
+    [isIntroScreenEnabled]="isIntroScreenEnabled"
+    [primaryColor]="primaryColor"
+    [logoUrl]="logoUrl"
+  >
+  </app-help-center-widget>
+</div>

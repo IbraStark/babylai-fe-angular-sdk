@@ -1,0 +1,33 @@
+<form (ngSubmit)="handleSendMessage()" class="chat__input-container">
+  <div class="chat__input-wrapper">
+    <input
+      type="text"
+      [(ngModel)]="messageContent"
+      name="messageContent"
+      [placeholder]="'ChatPlaceholder' | translate"
+      [disabled]="isChatClosed"
+      class="chat__input"
+      #messageInput
+    />
+    <button
+      type="submit"
+      [disabled]="
+        !messageContent.trim() || isChatClosed || assistantStatus === 'typing'
+      "
+      class="chat__send-button"
+    >
+      <svg
+        class="chat__send-button-icon"
+        [class.chat__send-button-icon--rtl]="currentLang === 'ar'"
+        viewBox="0 0 19 19"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18.2346 2.68609C18.6666 1.49109 17.5086 0.33309 16.3136 0.76609L1.70855 6.04809C0.509554 6.48209 0.364554 8.11809 1.46755 8.75709L6.12955 11.4561L10.2926 7.29309C10.4812 7.11093 10.7338 7.01014 10.996 7.01242C11.2582 7.01469 11.509 7.11986 11.6944 7.30527C11.8798 7.49068 11.9849 7.74149 11.9872 8.00369C11.9895 8.26589 11.8887 8.51849 11.7066 8.70709L7.54355 12.8701L10.2436 17.5321C10.8816 18.6351 12.5176 18.4891 12.9516 17.2911L18.2346 2.68609Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+  </div>
+</form>

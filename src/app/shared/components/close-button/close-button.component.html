@@ -1,0 +1,21 @@
+<app-button
+  variant="icon-bg"
+  [direction]="isRtl ? 'rtl' : 'ltr'"
+  className="button--close-button"
+  (click)="onClose.emit()"
+>
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 55 55"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M33.8568 21.1458L21.1484 33.8541M21.1484 21.1458L33.8568 33.8541M14.7943 5.48404C18.6562 3.24921 23.0407 2.07593 27.5026 2.08329C41.5402 2.08329 52.9193 13.4623 52.9193 27.5C52.9193 41.5376 41.5402 52.9166 27.5026 52.9166C13.465 52.9166 2.08594 41.5376 2.08594 27.5C2.08594 22.8716 3.32373 18.5279 5.48669 14.7916"
+      stroke="#fff"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+  </svg>
+</app-button>

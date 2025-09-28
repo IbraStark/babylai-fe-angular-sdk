@@ -1,0 +1,10 @@
+@use '../../../../scss/variables' as *;
+
+.chat__separator {
+  width: 100%;
+  color: primary('default');
+
+  img {
+    width: 100%;
+  }
+}

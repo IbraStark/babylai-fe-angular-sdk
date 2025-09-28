@@ -1,14 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// Conditional imports for optional dependencies
-let marked: any;
-
-try {
-  marked = eval('require')('marked');
-} catch (e) {
-  console.warn('marked not available, markdown rendering will be disabled');
-}
+import { marked } from 'marked';
 
 @Component({
   selector: 'app-markdown-renderer',
@@ -42,9 +34,9 @@ export class MarkdownRendererComponent implements OnInit, AfterViewInit {
   }
 
   private renderContent(): void {
-    if (marked && this.content) {
+    if (this.content) {
       try {
-        this.renderedContent = marked.parse(this.content);
+        this.renderedContent = marked.parse(this.content) as string;
       } catch (e) {
         console.warn('Error parsing markdown:', e);
         this.renderedContent = this.content;

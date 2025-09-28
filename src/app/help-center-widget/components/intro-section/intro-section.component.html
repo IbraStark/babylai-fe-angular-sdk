@@ -1,0 +1,118 @@
+<div class="intro-section">
+  <h1 class="intro-title">{{ "ChatIntroMessage" | translate }}</h1>
+</div>
+
+<div class="cards-section">
+  <app-card variant="rounded" [class]="'babylai-p-8'">
+    <app-card-content>
+      <div class="card-content">
+        <div class="babylai-info">
+          <div class="logo-container">
+            <svg
+              class="logo"
+              viewBox="0 0 55 53"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.53125 19.1353C8.53125 12.2804 14.0883 6.72339 20.9432 6.72339H41.6298C48.4847 6.72339 54.0418 12.2804 54.0418 19.1353V52.2339H20.9432C14.0883 52.2339 8.53125 46.6769 8.53125 39.8219V19.1353Z"
+                fill="#E5E5E5"
+              />
+              <path
+                d="M0 12.412C0 5.55702 5.55702 0 12.412 0H33.0985C39.9535 0 45.5105 5.55702 45.5105 12.412V33.0985C45.5105 39.9535 39.9535 45.5105 33.0985 45.5105H0V12.412Z"
+                fill="white"
+              />
+              <path
+                d="M14.3684 15.2203C14.3696 15.2162 14.3701 15.2142 14.3704 15.2132C14.5505 14.5816 15.4457 14.5816 15.6258 15.2132C15.6261 15.2142 15.6267 15.2162 15.6278 15.2203C15.6309 15.2311 15.6324 15.2365 15.6338 15.2416C16.4708 18.1971 18.7808 20.5071 21.7364 21.3441C21.7414 21.3455 21.7468 21.3471 21.7576 21.3501C21.7617 21.3512 21.7637 21.3518 21.7647 21.3521C22.3963 21.5322 22.3963 22.4274 21.7647 22.6075C21.7637 22.6078 21.7617 22.6084 21.7576 22.6095C21.7468 22.6126 21.7414 22.6141 21.7364 22.6155C18.7808 23.4525 16.4708 25.7625 15.6338 28.7181C15.6324 28.7231 15.6309 28.7285 15.6278 28.7393C15.6267 28.7434 15.6261 28.7454 15.6258 28.7464C15.4457 29.378 14.5505 29.378 14.3704 28.7464C14.3701 28.7454 14.3696 28.7434 14.3684 28.7393C14.3654 28.7285 14.3638 28.7231 14.3624 28.7181C13.5254 25.7625 11.2154 23.4525 8.25988 22.6155C8.25481 22.6141 8.24942 22.6126 8.23864 22.6095C8.23454 22.6084 8.2325 22.6078 8.23155 22.6075C7.5999 22.4274 7.5999 21.5322 8.23155 21.3521C8.2325 21.3518 8.23454 21.3512 8.23864 21.3501C8.24942 21.3471 8.25481 21.3455 8.25988 21.3441C11.2154 20.5071 13.5254 18.1971 14.3624 15.2416C14.3638 15.2365 14.3654 15.2311 14.3684 15.2203Z"
+                fill="currentColor"
+              />
+              <path
+                d="M36.7198 21.8503C36.7198 24.9207 34.2886 27.4098 31.2896 27.4098C28.2906 27.4098 25.8594 24.9207 25.8594 21.8503C25.8594 18.7799 28.2906 16.2908 31.2896 16.2908C34.2886 16.2908 36.7198 18.7799 36.7198 21.8503Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <div class="info-text">
+            <h4 class="info-title">
+              {{ "BabylaiTitle" | translate }}
+            </h4>
+            <p class="info-description">
+              {{ "BabylaiDescription" | translate }}
+            </p>
+          </div>
+        </div>
+        <app-button
+          variant="default"
+          [fullWidth]="true"
+          (click)="handleShowHelpScreenData()"
+        >
+          {{ "ChatNow" | translate }}
+        </app-button>
+      </div>
+    </app-card-content>
+  </app-card>
+
+  <app-card variant="rounded" [class]="'babylai-p-6'">
+    <app-card-content>
+      <div class="action-card">
+        <p class="action-text">{{ "TryBableAI" | translate }}</p>
+        <app-button
+          variant="icon-bg"
+          (click)="handleNavigateToUrl('https://babylai.net/signup')"
+        >
+          <svg
+            width="100%"
+            height="100%"
+            [ngClass]="{
+              icon: true,
+              'icon-rtl': currentLang === 'ar'
+            }"
+            viewBox="0 0 9 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </app-button>
+      </div>
+    </app-card-content>
+  </app-card>
+
+  <app-card variant="rounded" [class]="'babylai-p-6'">
+    <app-card-content>
+      <div class="action-card">
+        <p class="action-text">{{ "ContactUs" | translate }}</p>
+        <app-button
+          variant="icon-bg"
+          (click)="handleNavigateToUrl('https://babylai.net')"
+        >
+          <svg
+            width="100%"
+            height="100%"
+            [ngClass]="{
+              icon: true,
+              'icon-rtl': currentLang === 'ar'
+            }"
+            viewBox="0 0 9 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.5 0.999998L7.5 8L6 9.75M1.5 15L3.5 12.667"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </app-button>
+      </div>
+    </app-card-content>
+  </app-card>
+</div>

@@ -1,0 +1,59 @@
+@use "../../../../scss/variables" as *;
+
+.chat__message-container {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing("3");
+
+  &--user {
+    flex-direction: row-reverse;
+  }
+}
+
+.chat__message {
+  max-width: 80%;
+  position: relative;
+  border-radius: spacing("4");
+  padding: spacing("4");
+
+  &--user {
+    align-self: flex-start;
+    background-color: primary("default");
+    color: black-white("50");
+    direction: rtl;
+  }
+
+  &--assistant,
+  &--agent {
+    align-self: flex-end;
+    background-color: black-white("50");
+    color: black-white("950");
+    direction: rtl;
+  }
+}
+
+.chat__message-content {
+  :global(.prose) {
+    max-width: none;
+    word-break: break-words;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+
+    > p,
+    > ul,
+    > ol,
+    > blockquote {
+      margin: spacing("2") 0;
+    }
+
+    &.prose-invert {
+      color: black-white("50");
+    }
+  }
+}

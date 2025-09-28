@@ -1,0 +1,24 @@
+<div class="header">
+  @if (showBackButton) {
+    <app-back-button
+      [size]="'medium'"
+      [language]="language"
+      (onBack)="onBack.emit()"
+    ></app-back-button>
+  }
+  
+  @if (showCloseButton) {
+    <app-close-button
+      [language]="language"
+      (onClose)="onClose.emit()"
+    ></app-close-button>
+  }
+  
+  <app-logo [showLogo]="showLogo"></app-logo>
+
+  @if (!showBackButton && !showCloseButton) {
+    <app-simple-close-button
+      (onClose)="onClose.emit()"
+    ></app-simple-close-button>
+  }
+</div>

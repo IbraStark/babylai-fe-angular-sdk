@@ -2,39 +2,43 @@
   <h1 class="help-screen__title">
     {{ 'PickTopicTitle' | translate }}
   </h1>
-  <ng-container *ngFor="let item of helpScreenData?.options">
-    <app-card [id]="item.id" variant="rounded" class="help-screen__card" (click)="toggleExpand(item.id)">
-      <app-card-content>
-        <!-- Header section (always visible) -->
-        <div class="help-screen__header">
-          <h4 class="help-screen__title-text">{{ item.title }}</h4>
-          <div
-            class="help-screen__arrow-container"
-            [ngClass]="{
+  @for (item of helpScreenData?.options; track item.id) {
+  <app-card [id]="item.id" variant="rounded" class="help-screen__card" (click)="toggleExpand(item.id)">
+    <app-card-content>
+      <!-- Header section (always visible) -->
+      <div class="help-screen__header">
+        <h4 class="help-screen__title-text">{{ item.title }}</h4>
+        <div class="help-screen__arrow-container" [ngClass]="{
               'help-screen__arrow-container--expanded': expandedItemId === item.id,
               'help-screen__arrow-container--collapsed': expandedItemId !== item.id
-            }"
-          >
-            <!-- <img src="/icons/arrow-stripped-colored.svg" alt="arrow-down" /> -->
-            <svg class="header__back-button-icon" width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7 15L1 8L2.5 6.25M7 1L5 3.333" stroke="#7A1CAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
+            }">
+          <!-- <img src="/icons/arrow-stripped-colored.svg" alt="arrow-down" /> -->
+          <svg class="help-screen__header__back-button-icon" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 15L1 8L2.5 6.25M7 1L5 3.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </div>
+      </div>
 
-        <!-- Expanded content (visible only when expanded) -->
-        <div *ngIf="expandedItemId === item.id" class="help-screen__content">
-          <ng-container>
-            <div *ngFor="let paragraph of item.paragraphs" class="help-screen__paragraph">
-              {{ paragraph }}
-            </div>
-          </ng-container>
-
-          <app-button *ngIf="item?.chatWithUs" variant="default" [fullWidth]="true" (click)="handleStartChat(item)">{{
-            'ChatNow' | translate
-          }}</app-button>
+      <!-- Expanded content (visible only when expanded) -->
+      @if (expandedItemId === item.id) {
+      <div class="help-screen__content">
+        @for (paragraph of item.paragraphs; track paragraph) {
+        <div class="help-screen__paragraph">
+          {{ paragraph }}
         </div>
-      </app-card-content>
-    </app-card>
-  </ng-container>
+        }
+      </div>
+      @if (item?.chatWithUs) {
+      <footer class="help-screen__footer">
+        <app-button variant="default" [fullWidth]="true" (click)="handleStartChat(item)">
+          {{ 'ChatNow' | translate }}
+        </app-button>
+      </footer>
+      }
+      }
+    </app-card-content>
+  </app-card>
+  }
 </div>
