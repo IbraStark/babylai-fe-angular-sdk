@@ -26,6 +26,7 @@ export class ChatMessageComponent {
   @Input() needsAgent: boolean = false;
   @Input() currentLang: string = 'en';
   @Input() isHidden: boolean = false;
+  @Input() avatarUrl: string = '';
 
   cleanMessageContent(content: string): string {
     return content.replace(/```/g, '\\`\\`\\`');

@@ -16,7 +16,7 @@
   overflow: hidden;
 
   &.is-open {
-    width: size('384');
+    width: size("384");
   }
 
   &.is-closed {
@@ -71,7 +71,7 @@
   inset-inline-end: 0;
   width: 10rem;
   height: 10rem;
-  color: primary('default');
+  color: primary("default");
 }
 
 .icon-full {
@@ -79,22 +79,12 @@
 }
 
 .babylai-bg-linear-to-b {
-  background: var(--babylai-primary-color);
-  background: linear-gradient(
-    180deg,
-    var(--babylai-primary-color) 1%,
-    color-mix(in srgb, var(--babylai-primary-color) 1%, transparent) 100%
-  );
+  background: var(--babylai-background-color);
 }
 
 /* Dark mode via browser preference */
 @media (prefers-color-scheme: dark) {
   .babylai-bg-linear-to-b {
-    background: var(--babylai-storm-dust-950);
-    background: linear-gradient(
-      180deg,
-      var(--babylai-storm-dust-950) 1%,
-      color-mix(in srgb, var(--babylai-storm-dust-950) 60%, transparent) 100%
-    );
+    background: var(--babylai-background-color);
   }
 }

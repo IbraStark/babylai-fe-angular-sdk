@@ -1,11 +1,5 @@
-<button
-  class="help-button"
-  (click)="handleTogglePopup()"
-  [style.opacity]="isVisible ? 1 : 0"
->
-  <span class="help-button-content">
-    <svg
-      class="help-button-logo"
+<svg
+      class="chat__avatar-image"
       viewBox="0 0 55 53"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,5 +21,3 @@
         fill="currentColor"
       />
     </svg>
-  </span>
-</button>

@@ -13,7 +13,7 @@ import { ApiService } from './services/api.service';
   standalone: true,
   imports: [CommonModule, HelpCenterWidgetComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'angular-help-center';
@@ -90,5 +90,6 @@ export class AppComponent implements OnInit, OnDestroy {
   helpScreenId = '40c40c8f-e6f9-4135-9d13-9f6872ea8776';
   isIntroScreenEnabled = true;
   primaryColor = '#008080';
+  backgroundColor = '#ffffff';
   logoUrl = '';
 }

@@ -36,6 +36,7 @@
   :global(.prose) {
     max-width: none;
     word-break: break-words;
+    text-align: start;
 
     > *:first-child {
       margin-top: 0;
@@ -54,6 +55,15 @@
 
     &.prose-invert {
       color: var(--card-foreground);
+      text-align: end !important;
     }
   }
+}
+
+.prose {
+  text-align: start !important;
+}
+
+.prose-invert {
+  text-align: end !important;
 }

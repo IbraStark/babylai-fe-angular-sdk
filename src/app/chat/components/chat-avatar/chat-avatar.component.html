@@ -1,9 +1,9 @@
-<div
-  class="chat__avatar"
-  [class.chat__avatar--hidden]="isHidden"
->
+<div class="chat__avatar" [class.chat__avatar--hidden]="isHidden">
   @if (senderType === 3) {
   <span class="chat__avatar-wrapper chat__avatar-wrapper--assistant">
+    @if (avatarUrl) {
+    <img [src]="avatarUrl" alt="Assistant" class="logoUrl-image" />
+    } @else {
     <svg
       class="chat__avatar-image"
       viewBox="0 0 55 53"
@@ -27,9 +27,13 @@
         fill="currentColor"
       />
     </svg>
+    }
   </span>
   } @else if (needsAgent || senderType === 2) {
   <span class="chat__avatar-wrapper chat__avatar-wrapper--agent">
+    @if (avatarUrl) {
+    <img [src]="avatarUrl" alt="Assistant" class="logoUrl-image" />
+    } @else {
     <svg
       class="chat__avatar-image"
       viewBox="0 0 12 14"
@@ -45,6 +49,7 @@
         fill="currentColor"
       />
     </svg>
+    }
   </span>
   }
 </div>

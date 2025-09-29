@@ -9,7 +9,10 @@ import { ConfirmationDialogComponent } from '../../../shared/components/confirma
 import { ReviewDialogComponent } from '../../../shared/components/review-dialog/review-dialog.component';
 import { IntroSectionComponent } from '../intro-section/intro-section.component';
 import { FooterComponent } from '../footer/footer.component';
-import { ChatHeaderComponent, HeaderComponent } from '../../../shared/components';
+import {
+  ChatHeaderComponent,
+  HeaderComponent,
+} from '../../../shared/components';
 
 interface Option {
   id: string;
@@ -64,7 +67,7 @@ interface Message {
     ReviewDialogComponent,
     IntroSectionComponent,
     FooterComponent,
-  ]
+  ],
 })
 export class HelpPopupComponent {
   @Input() isPopupOpen: boolean = false;
@@ -88,7 +91,7 @@ export class HelpPopupComponent {
   @Input() showStartNewChatConfirmation: boolean = false;
   @Input() showReviewDialog: boolean = false;
   @Input() isSubmittingReview: boolean = false;
-
+  @Input() avatarUrl: string = '';
   @Output() closePopup = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
   @Output() showChatEvent = new EventEmitter<void>();
@@ -97,7 +100,10 @@ export class HelpPopupComponent {
   @Output() cancelEndChat = new EventEmitter<void>();
   @Output() confirmStartNewChat = new EventEmitter<void>();
   @Output() cancelStartNewChat = new EventEmitter<void>();
-  @Output() reviewSubmit = new EventEmitter<{ rating: number; comment: string }>();
+  @Output() reviewSubmit = new EventEmitter<{
+    rating: number;
+    comment: string;
+  }>();
   @Output() reviewSkip = new EventEmitter<void>();
   @Output() sendMessageEvent = new EventEmitter<string>();
   @Output() startNewChat = new EventEmitter<Option>();

@@ -5,6 +5,8 @@ import { Injectable, signal, computed } from '@angular/core';
 })
 export class ThemeService {
   private primaryColor: string = '#ad49e1';
+  private backgroundColor: string = '#ffffff';
+  private foregroundColor: string = '#333333';
   private logoUrl: string = '';
   private isDarkMode = signal(false);
 
@@ -22,7 +24,7 @@ export class ThemeService {
     // Listen for changes in color scheme preference
     if (typeof window !== 'undefined' && window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      
+
       // Add listener for changes
       mediaQuery.addEventListener('change', () => {
         this.updateDarkModeState();
@@ -59,12 +61,28 @@ export class ThemeService {
     this.updateCSSVariables();
   }
 
+  setBackgroundColor(color: string): void {
+    this.backgroundColor = color;
+    this.updateCSSVariables();
+  }
+
+  setForegroundColor(color: string): void {
+    this.foregroundColor = color;
+    this.updateCSSVariables();
+  }
+
   setLogoUrl(url: string): void {
     this.logoUrl = url;
   }
 
   getPrimaryColor(): string {
     return this.primaryColor;
+  }
+  getBackgroundColor(): string {
+    return this.backgroundColor;
+  }
+  getForegroundColor(): string {
+    return this.foregroundColor;
   }
 
   getLogoUrl(): string {
@@ -79,6 +97,8 @@ export class ThemeService {
 
     // Set CSS custom properties
     root.style.setProperty('--babylai-primary-color', this.primaryColor);
+    root.style.setProperty('--babylai-background-color', this.backgroundColor);
+    root.style.setProperty('--card-foreground', this.foregroundColor);
     root.style.setProperty('--babylai-primary-color-100', colorVariations[100]);
     root.style.setProperty('--babylai-primary-color-200', colorVariations[200]);
     root.style.setProperty('--babylai-primary-color-300', colorVariations[300]);
@@ -125,7 +145,9 @@ export class ThemeService {
     const newG = Math.round(g + (255 - g) * amount);
     const newB = Math.round(b + (255 - b) * amount);
 
-    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+    return `#${newR.toString(16).padStart(2, '0')}${newG
+      .toString(16)
+      .padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
   }
 
   /**
@@ -142,11 +164,20 @@ export class ThemeService {
     const newG = Math.round(g * (1 - amount));
     const newB = Math.round(b * (1 - amount));
 
-    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+    return `#${newR.toString(16).padStart(2, '0')}${newG
+      .toString(16)
+      .padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
   }
 
-  initializeTheme(primaryColor: string, logoUrl: string): void {
+  initializeTheme(
+    primaryColor: string,
+    backgroundColor: string,
+    foregroundColor: string,
+    logoUrl: string
+  ): void {
     this.setPrimaryColor(primaryColor);
+    this.setBackgroundColor(backgroundColor);
+    this.setForegroundColor(foregroundColor);
     this.setLogoUrl(logoUrl);
   }
 }

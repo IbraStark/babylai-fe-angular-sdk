@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './help-button.component.html',
   styleUrls: ['./help-button.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class HelpButtonComponent {
   @Output() togglePopup = new EventEmitter<void>();
+  @Input() isVisible: boolean = true;
 
   handleTogglePopup() {
     this.togglePopup.emit();

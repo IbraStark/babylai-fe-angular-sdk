@@ -5,21 +5,27 @@
       @if (i === firstAgentMessageIndex && message.senderType === 2) {
       <app-chat-separator />
       }
-      <app-chat-message [message]="message" [needsAgent]="needsAgent" [currentLang]="currentLang"
-        [isHidden]="i > 0 && messages[i - 1].senderType === message.senderType" />
+      <app-chat-message
+        [message]="message"
+        [needsAgent]="needsAgent"
+        [currentLang]="currentLang"
+        [isHidden]="i > 0 && messages[i - 1].senderType === message.senderType"
+        [avatarUrl]="avatarUrl"
+      />
     </div>
-    }
-
-    @if (assistantStatus === 'typing' && firstAgentMessageIndex === -1) {
+    } @if (assistantStatus === 'typing' && firstAgentMessageIndex === -1) {
     <app-chat-typing-indicator />
-    }
-    @if (loading) {
+    } @if (loading) {
     <div class="chat__loading">
       <app-loading variant="primary" />
     </div>
     }
   </div>
 
-  <app-chat-input [isChatClosed]="isChatClosed" [assistantStatus]="assistantStatus" [currentLang]="currentLang"
-    (sendMessage)="handleSendMessage($event)" />
+  <app-chat-input
+    [isChatClosed]="isChatClosed"
+    [assistantStatus]="assistantStatus"
+    [currentLang]="currentLang"
+    (sendMessage)="handleSendMessage($event)"
+  />
 </div>

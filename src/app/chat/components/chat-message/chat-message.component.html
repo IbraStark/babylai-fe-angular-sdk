@@ -6,6 +6,7 @@
     [senderType]="message.senderType"
     [needsAgent]="needsAgent"
     [isHidden]="isHidden"
+    [avatarUrl]="avatarUrl"
   />
   <app-card
     variant="rounded"
@@ -21,7 +22,12 @@
         <app-markdown-renderer
           [content]="cleanMessageContent(message.messageContent)"
           [inline]="false"
-          [cssClass]="'prose' + (message.senderType === 1 ? ' prose-invert' : '')"
+          [class]="
+            'prose' +
+            (message.senderType === 1
+              ? ' prose-invert' + ' user-message'
+              : ' bot-message')
+          "
           [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
         >
         </app-markdown-renderer>

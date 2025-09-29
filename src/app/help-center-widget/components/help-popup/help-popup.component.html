@@ -16,9 +16,7 @@
     (onConfirm)="handleConfirmEndChat()"
     (onCancel)="handleCancelEndChat()"
   ></app-confirmation-dialog>
-  }
-
-  @if (showStartNewChatConfirmation) {
+  } @if (showStartNewChatConfirmation) {
   <app-confirmation-dialog
     [title]="'StartNewChatDialogTitle' | translate"
     [body]="'StartNewChatDialogBody' | translate"
@@ -133,6 +131,7 @@
     (sendMessageEvent)="handleSendMessage($event)"
     [currentLang]="currentLang"
     [loading]="chatIsLoading"
+    [avatarUrl]="avatarUrl"
   ></app-chat>
   }
 

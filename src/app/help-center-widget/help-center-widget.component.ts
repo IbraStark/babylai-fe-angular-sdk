@@ -83,7 +83,13 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
   }
   @Input() isIntroScreenEnabled: boolean = false;
   @Input() primaryColor: string = '#ad49e1';
+  @Input() backgroundColor: string = '#ffffff';
+  @Input() foregroundColor: string = '#333333';
   @Input() logoUrl: string = '';
+  @Input() isButtonVisible: boolean = true;
+  @Input() isArrowVisible: boolean = false;
+  @Input() avatarUrl: string = '';
+
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
   private _currentLang: string = 'en';
@@ -135,7 +141,12 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     // Initialize theme with current inputs
-    this.themeService.initializeTheme(this.primaryColor, this.logoUrl);
+    this.themeService.initializeTheme(
+      this.primaryColor,
+      this.backgroundColor,
+      this.foregroundColor,
+      this.logoUrl
+    );
 
     // Subscribe to language changes
     this.langSubscription = this.translationService.currentLang.subscribe(
@@ -149,6 +160,11 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     // Handle primaryColor changes
     if (changes['primaryColor'] && !changes['primaryColor'].firstChange) {
       this.themeService.setPrimaryColor(this.primaryColor);
+    }
+
+    // Handle backgroundColor changes
+    if (changes['backgroundColor'] && !changes['backgroundColor'].firstChange) {
+      this.themeService.setBackgroundColor(this.backgroundColor);
     }
 
     // Handle logoUrl changes - only set if explicitly provided
@@ -332,24 +348,27 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
   private hasActiveChatSession(): boolean {
     // Check if there are any user messages or agent/assistant responses (not just welcome messages)
-    return this.messages.some(message => 
-      message.senderType === 1 || // User message
-      (message.senderType === 2 || message.senderType === 3) && 
-      !this.isWelcomeMessage(message.messageContent) // Assistant/agent message that's not a welcome
+    return this.messages.some(
+      (message) =>
+        message.senderType === 1 || // User message
+        ((message.senderType === 2 || message.senderType === 3) &&
+          !this.isWelcomeMessage(message.messageContent)) // Assistant/agent message that's not a welcome
     );
   }
 
   private isWelcomeMessage(content: string): boolean {
     const welcomeMessages = [
       'Hello! How can I assist you today?',
-      'مرحباً! كيف يمكنني مساعدتك اليوم؟'
+      'مرحباً! كيف يمكنني مساعدتك اليوم؟',
     ];
     // Check if it's a standard welcome message or if it contains common greeting patterns
-    return welcomeMessages.some(welcome => content.includes(welcome)) ||
-           content.includes('Hello!') ||
-           content.includes('مرحباً!') ||
-           content.includes('How can I assist') ||
-           content.includes('كيف يمكنني مساعدتك');
+    return (
+      welcomeMessages.some((welcome) => content.includes(welcome)) ||
+      content.includes('Hello!') ||
+      content.includes('مرحباً!') ||
+      content.includes('How can I assist') ||
+      content.includes('كيف يمكنني مساعدتك')
+    );
   }
 
   async handleStartNewChat(option: Option) {
@@ -376,7 +395,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     try {
       // Create chat session (includes Ably connection setup)
       await this.createChatSession(option);
-      
+
       // Add greeting message
       this.messages.push({
         id: Date.now(),
@@ -442,7 +461,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
   async confirmEndChat() {
     this.showEndChatConfirmation = false;
-    
+
     // Only show review dialog if there was an active chat session with meaningful interaction
     if (this.sessionId && this.hasActiveChatSession()) {
       this.showReviewDialog = true;
@@ -456,29 +475,29 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     try {
       console.log('Review submitted:', reviewData);
       this.isSubmittingReview = true;
-      
+
       // Store session ID before closing chat
       const currentSessionId = this.sessionId;
-      
+
       // Close chat session first
       await this.endChatSession();
-      
+
       // Then submit review to API endpoint
       if (currentSessionId) {
         const reviewPayload = {
           rating: reviewData.rating,
-          comment: reviewData.comment
+          comment: reviewData.comment,
         };
-        
+
         await this.apiService.apiRequest(
           `Client/ClientChatSession/${currentSessionId}/review`,
           'POST',
           reviewPayload
         );
-        
+
         console.log('Review submitted successfully');
       }
-      
+
       // Close review dialog
       this.showReviewDialog = false;
       this.isSubmittingReview = false;
@@ -560,7 +579,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     try {
       // Create chat session (includes Ably connection setup)
       await this.createChatSession(option);
-      
+
       // Add greeting message
       this.messages.push({
         id: Date.now(),

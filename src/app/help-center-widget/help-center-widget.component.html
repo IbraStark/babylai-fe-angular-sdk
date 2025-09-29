@@ -5,10 +5,14 @@
     [isPopupOpen]="isPopupOpen"
     [messageLabel]="messageLabel"
     (closeArrowAnimation)="handleCloseArrowAnimation()"
+    [isVisible]="isArrowVisible"
   ></app-arrow-animation>
 
   <!-- Help Button -->
-  <app-help-button (togglePopup)="handleTogglePopup()"></app-help-button>
+  <app-help-button
+    [isVisible]="isButtonVisible"
+    (togglePopup)="handleTogglePopup()"
+  ></app-help-button>
 
   <!-- Help Popup -->
   <app-help-popup
@@ -33,6 +37,7 @@
     [showStartNewChatConfirmation]="showStartNewChatConfirmation"
     [showReviewDialog]="showReviewDialog"
     [isSubmittingReview]="isSubmittingReview"
+    [avatarUrl]="avatarUrl"
     (closePopup)="handleClosePopup()"
     (back)="handleBack()"
     (showChatEvent)="handleShowChat()"
@@ -48,5 +53,6 @@
     (showHelpScreenDataEvent)="handleShowHelpScreenData()"
     (hideHelpScreenData)="handleHideHelpScreenData()"
     (navigateToUrl)="navigateToUrl($event)"
-  >  </app-help-popup>
+  >
+  </app-help-popup>
 </div>

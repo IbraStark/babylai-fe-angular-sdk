@@ -46,6 +46,7 @@ export class ChatComponent implements OnInit, OnChanges {
   @Input() isChatClosed: boolean = false;
   @Input() currentLang: string = 'en';
   @Input() loading: boolean = false;
+  @Input() avatarUrl: string = '';
   @Output() sendMessageEvent = new EventEmitter<string>();
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
@@ -92,5 +93,4 @@ export class ChatComponent implements OnInit, OnChanges {
       (message) => message.senderType === 2 || message.senderType === 3
     );
   }
-
 }
