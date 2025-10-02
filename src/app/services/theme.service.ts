@@ -98,6 +98,7 @@ export class ThemeService {
     // Set CSS custom properties
     root.style.setProperty('--babylai-primary-color', this.primaryColor);
     root.style.setProperty('--babylai-background-color', this.backgroundColor);
+    root.style.setProperty('--card', this.backgroundColor);
     root.style.setProperty('--card-foreground', this.foregroundColor);
     root.style.setProperty('--babylai-primary-color-100', colorVariations[100]);
     root.style.setProperty('--babylai-primary-color-200', colorVariations[200]);

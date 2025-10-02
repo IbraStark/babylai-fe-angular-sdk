@@ -7,6 +7,8 @@ import {
   SimpleChanges,
   ViewChild,
   ElementRef,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +22,7 @@ import {
 import { TranslationService } from '../services/translation.service';
 import { ThemeService } from '../services/theme.service';
 import { Subscription } from 'rxjs';
+import { Language } from '../types';
 
 interface Option {
   id: string;
@@ -77,6 +80,10 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
   @Input() set currentLang(value: string) {
     this._currentLang = value;
     this.isRTL = value === 'ar';
+    // Update the translation service when input changes
+    if (this.translationService) {
+      this.translationService.setLanguage(value as Language);
+    }
   }
   get currentLang(): string {
     return this._currentLang;
@@ -89,6 +96,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isButtonVisible: boolean = true;
   @Input() isArrowVisible: boolean = false;
   @Input() avatarUrl: string = '';
+  @Output() popUpClosed = new EventEmitter<void>();
 
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
@@ -148,12 +156,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
       this.logoUrl
     );
 
-    // Subscribe to language changes
-    this.langSubscription = this.translationService.currentLang.subscribe(
-      (lang) => {
-        this.currentLang = lang;
-      }
-    );
+    // Initialize translation service with current language
+    this.translationService.setLanguage(this._currentLang as Language);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -193,6 +197,8 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
         this.showHelpScreenData = true;
       }
       await this.fetchHelpScreenData();
+    } else {
+      this.popUpClosed.emit();
     }
   }
 
@@ -637,6 +643,7 @@ export class HelpCenterWidgetComponent implements OnInit, OnDestroy, OnChanges {
     this.selectedNestedOption = null;
     // Clear messages when closing popup to ensure fresh start next time
     this.messages = [];
+    this.popUpClosed.emit();
   }
 
   handleCloseArrowAnimation() {
