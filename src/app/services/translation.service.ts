@@ -28,6 +28,9 @@ export type TranslationKey =
   | 'ReviewDialogSkipButton'
   | 'Confirm'
   | 'Cancel'
+  | 'RatingMustBeBetween1And5'
+  | 'CommentMustBeAtLeast10Characters'
+  | 'CommentMustNotExceed500Characters'
   | 'title';
 
 @Injectable({
@@ -64,6 +67,11 @@ export class TranslationService {
       Confirm: 'Confirm',
       Cancel: 'Cancel',
       title: 'Help Center',
+      RatingMustBeBetween1And5: 'Rating must be between 1 and 5.',
+      CommentMustBeAtLeast10Characters:
+        'Comment must be at least 10 characters.',
+      CommentMustNotExceed500Characters:
+        'Comment must not exceed 500 characters.',
     },
     ar: {
       ChatIntroMessage: 'دردش مع BabylAI 🚀',
@@ -94,6 +102,10 @@ export class TranslationService {
       Confirm: 'تأكيد',
       Cancel: 'إلغاء',
       title: 'مركز المساعدة',
+      RatingMustBeBetween1And5: 'يجب أن يكون التقييم بين 1 و 5.',
+      CommentMustBeAtLeast10Characters: 'يجب أن يكون التعليق بين 10 و 500 حرف.',
+      CommentMustNotExceed500Characters:
+        'يجب أن يكون التعليق بين 10 و 500 حرف.',
     },
   };
 

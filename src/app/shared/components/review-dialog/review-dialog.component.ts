@@ -1,26 +1,32 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
   selector: 'app-review-dialog',
   templateUrl: './review-dialog.component.html',
   styleUrls: ['./review-dialog.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonComponent, TranslatePipe]
+  imports: [CommonModule, FormsModule, ButtonComponent, TranslatePipe],
 })
 export class ReviewDialogComponent {
   @Input() isOpen: boolean = false;
   @Input() isSubmitting: boolean = false;
   @Output() close = new EventEmitter<void>();
-  @Output() submitReview = new EventEmitter<{ rating: number; comment: string }>();
+  @Output() submitReview = new EventEmitter<{
+    rating: number;
+    comment: string;
+  }>();
   @Output() skip = new EventEmitter<void>();
+
+  translationService = inject(TranslationService) as TranslationService;
 
   rating: number = 0;
   comment: string = '';
-  
+
   // Validation errors
   ratingError: string = '';
   commentError: string = '';
@@ -44,7 +50,7 @@ export class ReviewDialogComponent {
     if (this.validateForm() && !this.isSubmitting) {
       this.submitReview.emit({
         rating: this.rating,
-        comment: this.comment.trim()
+        comment: this.comment.trim(),
       });
       // Don't reset form immediately - wait for parent to handle submission
     }
@@ -59,23 +65,29 @@ export class ReviewDialogComponent {
 
   private validateForm(): boolean {
     let isValid = true;
-    
+
     // Validate rating
     if (this.rating < 1 || this.rating > 5) {
-      this.ratingError = 'Rating must be between 1 and 5.';
+      this.ratingError = this.translationService.translate(
+        'RatingMustBeBetween1And5'
+      );
       isValid = false;
     }
-    
+
     // Validate comment
     const trimmedComment = this.comment.trim();
     if (trimmedComment.length < 10) {
-      this.commentError = 'Comment must be at least 10 characters long.';
+      this.commentError = this.translationService.translate(
+        'CommentMustBeAtLeast10Characters'
+      );
       isValid = false;
     } else if (trimmedComment.length > 500) {
-      this.commentError = 'Comment must not exceed 500 characters.';
+      this.commentError = this.translationService.translate(
+        'CommentMustNotExceed500Characters'
+      );
       isValid = false;
     }
-    
+
     return isValid;
   }
 
@@ -95,7 +107,9 @@ export class ReviewDialogComponent {
   }
 
   getStarsArray(): number[] {
-    return Array(5).fill(0).map((_, index) => index);
+    return Array(5)
+      .fill(0)
+      .map((_, index) => index);
   }
 
   isStarFilled(starIndex: number): boolean {
